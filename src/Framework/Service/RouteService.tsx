@@ -1,4 +1,5 @@
 import React from 'react';
+import { hot } from "react-hot-loader/root";
 import { Route, Switch } from 'react-router-dom';
 import DefaultView from '../View/DefaultView';
 import ServiceContainer from '../DependencyInjection/ServiceContainer';
@@ -8,7 +9,7 @@ type routes = 'home';
 
 const serviceContainer: ServiceContainerInterface = new ServiceContainer();
 
-export default function RouteService() {
+const RouteService = () => {
   return (<React.Fragment>
       <div className="dark">
         <Switch>
@@ -21,6 +22,8 @@ export default function RouteService() {
     </React.Fragment>
   );
 }
+
+export default hot(RouteService)
 
 export function getRoute(path: routes): string {
   // generatePath('/'), // generatePath(path, parameters) -> Path string and parameters an object
