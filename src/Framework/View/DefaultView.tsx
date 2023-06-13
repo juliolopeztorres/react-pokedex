@@ -56,6 +56,7 @@ const DefaultView = () => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([])
   const [pokemonDetail, setPokemonDetail] = useState<PokemonDetail | null>(null)
   const [searchPokemonName, setSearchPokemonName] = useState<string>('')
+  const [searchingPokemon, setSearchingPokemon] = useState<boolean>(false)
 
   useEffect(() => {
     const pokemonsSaved : string | null = localStorage.getItem('pokemons')
@@ -88,55 +89,81 @@ const DefaultView = () => {
   }
 
   const onSearchPokemonChanged = (name : string) => {
-    setSearchPokemonName(name.trim())
+    const cleanedName = name.trim()
+
+    setSearchingPokemon(cleanedName.length !== 0)
+    setSearchPokemonName(cleanedName)
   }
 
   return <React.Fragment>
-    <h1>Pokédex</h1>
-    <div style={{ marginBottom: '1.25rem', backgroundColor: 'yellow' }}>
-      <input type="search" placeholder={'Start typing a Pokémon name...'} size={22} value={searchPokemonName}
+    <h1 className={'text-red-600 text-3xl mb-4 pl-2 font-mono'}>Pokédex</h1>
+    <div className={'pl-2 mb-4'}>
+      <input type="search"
+             className='
+             py-1
+             pl-6
+             pr-4
+             focus:shadow-md
+             border
+             border-red-200
+             rounded-lg hover:border-red-400 focus:outline-none
+             placeholder:text-red-200
+             text-red-400
+             '
+             placeholder={'Start typing a Pokémon name...'} size={22} value={searchPokemonName}
              onChange={(e) => {
                onSearchPokemonChanged(e.target.value)
              }}/>
+      {searchingPokemon && <span
+        className='w-5 h-5 absolute ml-[-1.25rem] mt-[0.25rem] text-orange-500 font-mono'
+        style={{cursor: 'pointer'}}
+        onClick={() => onSearchPokemonChanged('')}
+      >x</span>}
     </div>
-    <div style={{ display: 'flex', height: '50rem' }}>
-      <div style={{ width: '50%', overflowY: 'scroll', backgroundColor: 'aqua' }}>
-        <ol>
-          {pokemons.filter((pokemon) => pokemon.name.includes(searchPokemonName)).map((pokemon) => <li
-            key={pokemon.id} style={{ cursor: 'pointer' }}
-            onClick={() => onPokemonClicked(pokemon)}>{ucWords(pokemon.name)}</li>)}
-        </ol>
+    <div className='flex md:flex-row flex-col-reverse max-h-screen'>
+      <div className='mx-2 basis-2/3 p-4 border rounded-md border-orange-400 shadow' style={{ overflowY: 'scroll' }}>
+        <ul className='
+        list-decimal
+        list-inside
+        marker:text-orange-600
+        columns-2
+        md:columns-3
+        lg:columns-4
+        xl:columns-5
+        '>
+          {pokemons.filter((pokemon) => pokemon.name.includes(searchPokemonName.toLowerCase())).map((pokemon) =>
+            <li
+            className='
+            text-slate-800
+            hover:shadow
+            hover:bg-orange-100
+            hover:rounded-lg
+            '
+            key={pokemon.id}
+            style={{ cursor: 'pointer' }}
+            onClick={() => onPokemonClicked(pokemon)}>{ucWords(pokemon.name)}
+          </li>)}
+        </ul>
       </div>
       {(pokemonDetail) &&
-        <div style={{ width: '50%', backgroundColor: 'beige', display: 'flex', flexDirection: 'column' }}>
-          <div style={{ backgroundColor: 'red', alignSelf: 'center', marginBottom: '1.25rem' }}>
-            <img src={pokemonDetail.image} alt="Pokemon image" width={'200rem'} height={'200rem'}/>
+        <div className='basis-1/3 flex flex-col mx-2 mb-2 md:mb-0'>
+          <span className="self-end text-orange-600 bg-orange-100 rounded w-5 h-6 text-center font-mono" style={{cursor: 'pointer'}} onClick={() => {
+            setPokemonDetail(null)
+          }}>x</span>
+          <div className='self-center mb-4'>
+            <img src={pokemonDetail.image} alt="Pokemon image" className='w-[10rem] md:w-[15rem]'/>
           </div>
-          <div style={{
-            backgroundColor: 'green',
-            alignSelf: 'center',
-            display: 'flex',
-            flexDirection: 'row',
-            marginBottom: '1.25rem'
-          }}>
-            {pokemonDetail.types.map((type) => <div style={{
-              cursor: 'pointer',
-              backgroundColor: 'aliceblue',
-              borderRadius: '5px',
-              width: 'fit-content',
-              paddingLeft: '1rem',
-              paddingRight: '1rem',
-              paddingTop: '0.25rem',
-              paddingBottom: '0.25rem',
-              marginRight: '0.5rem'
-            }}>{type}</div>)}
+          <div className='flex flex-row self-center mb-4'>
+            {pokemonDetail.types.map((type) => <div
+              className='bg-orange-100 border border-orange-400 w-fit px-2 py-1 mr-1 last:mr-0 rounded-md hover:bg-orange-300'
+              style={{ cursor: 'pointer' }}>{type}</div>)}
           </div>
-          <div style={{ backgroundColor: 'blue', alignSelf: 'center', display: 'flex', flexDirection: 'row' }}>
-            {pokemonDetail.backSprites.map((sprite) => <img src={sprite} alt="Pokemon back sprite"/>)}
+          <div className='self-center flex flex-row mb-4'>
+            {pokemonDetail.backSprites.map((sprite) => <img src={sprite} className='w-[10rem]' alt="Pokemon back sprite"/>)}
           </div>
-          <div style={{ backgroundColor: 'lightpink', alignSelf: 'center' }}>
-            <ul style={{ columns: 2, paddingLeft: '1.25rem', paddingRight: '1.25rem' }}>
-              {pokemonDetail.baseStats.map((baseStat) => <li>{ucWords(baseStat.name)}: {baseStat.value}</li>)}
+          <div className='w-100 border rounded border-orange-400 bg-orange-100 text-sm'>
+            <ul className='px-5 py-2 columns-2'>
+              {pokemonDetail.baseStats.map((baseStat) => <li className='mb-1 last:mb-0'>{ucWords(baseStat.name)}: {baseStat.value}</li>)}
             </ul>
           </div>
         </div>}
