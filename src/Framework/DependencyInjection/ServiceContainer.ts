@@ -1,4 +1,3 @@
-import TaskRepository from "../../Data/Repository/TaskRepository";
 import Service from "../../Data/Service";
 import ServiceContainerInterface from './ServiceContainerInterface';
 
@@ -7,7 +6,6 @@ export default class ServiceContainer implements ServiceContainerInterface{
 
   constructor() {
     this.services = [
-      new TaskRepository(localStorage),
     ];
   }
 
