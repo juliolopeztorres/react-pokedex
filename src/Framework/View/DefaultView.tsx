@@ -49,6 +49,25 @@ class PokemonDetail {
   }
 }
 
+const generationsInfo: {[key:string]: {offset: number, limit: number}} = {
+  '1st': {
+    offset: 0,
+    limit: 151
+  },
+  '2nd': {
+    offset: 151,
+    limit: 100
+  },
+  '3rd': {
+    offset: 251,
+    limit: 135
+  },
+  '4th': {
+    offset: 386,
+    limit: 107
+  },
+}
+
 const MapPokemon = (namedApiResponse : NamedAPIResource) : Pokemon => new Pokemon(
   parseInt(namedApiResponse.url.split('/').filter((token) => token.length).pop() as string),
   namedApiResponse.name
@@ -71,16 +90,20 @@ const DefaultView: (props: {onDarkModeChanged: (status: boolean) => void}) => Re
   const [pokemonDetail, setPokemonDetail] = useState<PokemonDetail | null>(null)
   const [searchPokemonName, setSearchPokemonName] = useState<string>('')
   const [showLoading, setShowLoading] = useState<boolean>(false)
+  const [currentGeneration, setCurrentGeneration] = useState<string>(Object.keys(generationsInfo)[0])
 
   useEffect(() => {
-    const pokemonsSaved : string | null = localStorage.getItem('pokemons')
+    const localStorageKey = `pokemon-${currentGeneration}`
+    const generationInfo = generationsInfo[currentGeneration]
+    const pokemonsSaved : string | null = localStorage.getItem(localStorageKey)
 
     if (null === pokemonsSaved) {
-      pokemonClient.listPokemons(0, 151)
+      setShowLoading(true)
+      pokemonClient.listPokemons(generationInfo.offset, generationInfo.limit)
         .then((response) => {
           const pokemons = response.results.map(MapPokemon)
-          localStorage.setItem('pokemons', JSON.stringify(pokemons))
-
+          localStorage.setItem(localStorageKey, JSON.stringify(pokemons))
+          setShowLoading(false)
           setPokemons(pokemons)
         })
         .catch((error) => console.error('Error:' + error))
@@ -89,7 +112,7 @@ const DefaultView: (props: {onDarkModeChanged: (status: boolean) => void}) => Re
     }
 
     setPokemons(JSON.parse(pokemonsSaved))
-  }, []);
+  }, [currentGeneration]);
 
   const onPokemonClicked = (pokemon : Pokemon) => {
     setShowLoading(true)
@@ -107,6 +130,12 @@ const DefaultView: (props: {onDarkModeChanged: (status: boolean) => void}) => Re
     setSearchPokemonName(cleanedName)
   }
 
+  const onGenerationChanged = (generation: string) => {
+    setSearchPokemonName('')
+    setPokemonDetail(null)
+    setCurrentGeneration(generation)
+  }
+
   return <div className='flex flex-col min-h-screen dark:bg-slate-800'>
     <div className='sticky z-50 top-0 flex flex-row bg-orange-600 shadow-md mb-4 pl-2 py-5 dark:bg-orange-800 dark:shadow-gray-700'>
       <div className="w-10 self-center">
@@ -122,8 +151,6 @@ const DefaultView: (props: {onDarkModeChanged: (status: boolean) => void}) => Re
             rounded-full
             peer
             peer-focus:outline-none
-          apeer-focus:ring-4
-          apeer-focus:ring-blue-300
             peer-checked:after:translate-x-full
             peer-checked:after:border-white
             peer-checked:bg-orange-400
@@ -132,44 +159,61 @@ const DefaultView: (props: {onDarkModeChanged: (status: boolean) => void}) => Re
             after:top-[2px]
             after:left-[2px]
             after:bg-orange-600
-          aafter:border-gray-800
-          aafter:border
             after:rounded-full
             after:h-5 after:w-5 after:transition-all
-          adark:bg-gray-700
-          adark:border-gray-600
-          adark:peer-focus:ring-blue-800
             "/>
         </label>
       </div>
     </div>
     <div className="grow">
-      <div className='pl-2 mb-4'>
-        <input type="search"
-               className='
-             py-1
-             pl-6
-             pr-4
-             focus:shadow-md dark:shadow-gray-700
-             border
-             border-red-200
-             rounded-lg hover:border-red-400 focus:outline-none
-             placeholder:text-red-200
-             text-red-400
-             dark:bg-slate-600
-             dark:placeholder:text-gray-200
-             dark:text-gray-200
-             dark:border-red-400
-             '
-               placeholder={'Start typing a Pokémon name...'} size={22} value={searchPokemonName}
-               onChange={(e) => {
-                 onSearchPokemonChanged(e.target.value)
-               }}/>
-        {searchPokemonName.length !== 0 && <span
-          className='w-5 h-5 absolute ml-[-1.25rem] mt-[0.25rem] text-orange-500 font-mono dark:text-gray-200'
-          style={{cursor: 'pointer'}}
-          onClick={() => onSearchPokemonChanged('')}
-        >x</span>}
+      <div className='pl-2 mb-4 flex flex-row'>
+        <div className='basis-3/4'>
+          <input type="search"
+                 className='
+               py-1
+               pl-6
+               pr-4
+               focus:shadow-md dark:shadow-gray-700
+               border
+               border-red-200
+               rounded-lg hover:border-red-400 focus:outline-none
+               placeholder:text-red-200
+               text-red-400
+               dark:bg-slate-600
+               dark:placeholder:text-gray-200
+               dark:text-gray-200
+               dark:border-red-400
+               '
+                 placeholder={'Start typing a Pokémon name...'} size={22} value={searchPokemonName}
+                 onChange={(e) => {
+                   onSearchPokemonChanged(e.target.value)
+                 }}/>
+          {searchPokemonName.length !== 0 && <span
+            className='w-5 h-5 absolute ml-[-1.25rem] mt-[0.25rem] text-orange-500 font-mono dark:text-gray-200'
+            style={{cursor: 'pointer'}}
+            onClick={() => onSearchPokemonChanged('')}
+          >x</span>}
+        </div>
+
+        <div className="basis-1/4 flex flex-row place-content-end pr-2">
+          <label htmlFor="pokemon-gen" className="
+          self-center mr-1
+          text-sm font-mono text-slate-800 dark:text-gray-200
+          before:md:content-['Pokémon\00a0gen.'] before:content-['Gen.']
+          "/>
+          <select id='pokemon-gen' className="
+          text-end
+          px-2
+        bg-white
+        border border-red-200 text-red-400 text-sm rounded-lg focus:outline-none
+        hover:border-red-400
+        dark:bg-slate-600 dark:border-red-400
+        dark:text-gray-200
+        " onChange={(e) => onGenerationChanged(e.target.value)}>
+            {Object.keys(generationsInfo).map((key) => <option key={key} value={key}>{key}</option>)}
+          </select>
+        </div>
+
       </div>
       <div className='mb-4 flex md:flex-row flex-col-reverse md:max-h-[40rem]'>
         <div className='mx-2 basis-2/3 p-4 border rounded-md border-orange-400 shadow dark:shadow-gray-700' style={{ overflowY: 'scroll' }}>

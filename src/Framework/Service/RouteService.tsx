@@ -13,7 +13,6 @@ const RouteService = () => {
   const [darkMode, setDarkMode] = useState<boolean>(false)
 
   const onDarkModeChanged = (status: boolean) => {
-    console.log('status', status)
     setDarkMode(status)
   }
 
