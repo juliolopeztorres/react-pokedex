@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { hot } from "react-hot-loader/root";
 import { Route, Switch } from 'react-router-dom';
 import DefaultView from '../View/DefaultView';
@@ -10,11 +10,18 @@ type routes = 'home';
 const serviceContainer: ServiceContainerInterface = new ServiceContainer();
 
 const RouteService = () => {
+  const [darkMode, setDarkMode] = useState<boolean>(false)
+
+  const onDarkModeChanged = (status: boolean) => {
+    console.log('status', status)
+    setDarkMode(status)
+  }
+
   return (<React.Fragment>
-      <div className="dark">
+      <div className={darkMode ? 'dark' : ''}>
         <Switch>
           <Route exact path={getRoute('home')}>
-            <DefaultView/>
+            <DefaultView onDarkModeChanged={onDarkModeChanged}/>
           </Route>
           <h1>404 - Route not found</h1>
         </Switch>
