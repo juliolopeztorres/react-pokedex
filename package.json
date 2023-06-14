@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "webpack --mode=production",
+    "build": "ENV=prod webpack --mode=production",
     "build:dev": "webpack",
     "serve": "webpack serve"
   },
@@ -27,6 +27,7 @@
     "@types/webpack": "^5.28.0",
     "babel-loader": "^9.1.2",
     "css-loader": "^6.8.1",
+    "cssnano": "^6.0.1",
     "dotenv-webpack": "^8.0.1",
     "postcss": "^8.4.24",
     "postcss-loader": "^7.3.3",
