@@ -91,6 +91,7 @@ const DefaultView: (props: {onDarkModeChanged: (status: boolean) => void}) => Re
   const [searchPokemonName, setSearchPokemonName] = useState<string>('')
   const [showLoading, setShowLoading] = useState<boolean>(false)
   const [currentGeneration, setCurrentGeneration] = useState<string>(Object.keys(generationsInfo)[0])
+  const [showPokemonAltArt, setShowPokemonAltArt] = useState<boolean>(false)
 
   useEffect(() => {
     const localStorageKey = `pokemon-${currentGeneration}`
@@ -136,8 +137,25 @@ const DefaultView: (props: {onDarkModeChanged: (status: boolean) => void}) => Re
     setCurrentGeneration(generation)
   }
 
+  const onPokemonArtClicked = (show: boolean) => {
+    setShowPokemonAltArt(show)
+  }
+
   return <div className='flex flex-col min-h-screen dark:bg-slate-800'>
-    <div className='sticky z-50 top-0 flex flex-row bg-orange-600 shadow-md mb-4 pl-2 py-5 dark:bg-orange-800 dark:shadow-gray-700'>
+    {(pokemonDetail && showPokemonAltArt) &&
+      <div className="z-50" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"/>
+        <div className="fixed inset-0 z-50 overflow-y-auto" onClick={() => onPokemonArtClicked(false)}>
+          <div className="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
+            <div
+              className="relative transform overflow-hidden rounded-lg bg-white p-4">
+              <img src={'https://img.pokemondb.net/artwork/' + pokemonDetail.name + '.jpg'} alt="Pokemon image"/>
+              <span className="italic text-gray-400 text-xs text-center mt-2">.jpg art with white background</span>
+            </div>
+          </div>
+        </div>
+      </div>}
+    <div className='sticky z-10 top-0 flex flex-row bg-orange-600 shadow-md mb-4 pl-2 py-5 dark:bg-orange-800 dark:shadow-gray-700'>
       <div className="w-10 self-center">
         <img src="img/pokeball.png" className='w-7 mx-auto' alt="pokeball"/>
       </div>
@@ -170,9 +188,12 @@ const DefaultView: (props: {onDarkModeChanged: (status: boolean) => void}) => Re
         <div className='basis-3/4'>
           <input type="search"
                  className='
+               w-[12rem]
+               md:w-[20rem]
+               pl-2
                py-1
-               pl-6
-               pr-4
+               md:pl-6
+               truncate
                focus:shadow-md dark:shadow-gray-700
                border
                border-red-200
@@ -184,7 +205,7 @@ const DefaultView: (props: {onDarkModeChanged: (status: boolean) => void}) => Re
                dark:text-gray-200
                dark:border-red-400
                '
-                 placeholder={'Start typing a Pokémon name...'} size={22} value={searchPokemonName}
+                 placeholder={'Start typing a Pokémon name...'} value={searchPokemonName}
                  onChange={(e) => {
                    onSearchPokemonChanged(e.target.value)
                  }}/>
@@ -194,7 +215,6 @@ const DefaultView: (props: {onDarkModeChanged: (status: boolean) => void}) => Re
             onClick={() => onSearchPokemonChanged('')}
           >x</span>}
         </div>
-
         <div className="basis-1/4 flex flex-row place-content-end pr-2">
           <label htmlFor="pokemon-gen" className="
           self-center mr-1
@@ -213,7 +233,6 @@ const DefaultView: (props: {onDarkModeChanged: (status: boolean) => void}) => Re
             {Object.keys(generationsInfo).map((key) => <option key={key} value={key}>{key}</option>)}
           </select>
         </div>
-
       </div>
       <div className='mb-4 flex md:flex-row flex-col-reverse md:max-h-[40rem]'>
         <div className='mx-2 basis-2/3 p-4 border rounded-md border-orange-400 shadow dark:shadow-gray-700' style={{ overflowY: 'scroll' }}>
@@ -279,8 +298,9 @@ const DefaultView: (props: {onDarkModeChanged: (status: boolean) => void}) => Re
                   setPokemonDetail(null)
                 }}>x</span>
             </div>
-            <div className='self-center mb-4'>
+            <div className='self-center mb-4 flex flex-col' style={{cursor: 'pointer'}} onClick={() => onPokemonArtClicked(true)}>
               <img src={pokemonDetail.image} alt="Pokemon image" className='w-[10rem] md:w-[15rem]'/>
+              <span className="italic text-gray-400 text-xs text-center mt-2">Click to show alternative art</span>
             </div>
             <div className='flex flex-row self-center mb-4'>
               {pokemonDetail.types.map((type) => <div
@@ -308,7 +328,7 @@ const DefaultView: (props: {onDarkModeChanged: (status: boolean) => void}) => Re
           </div>}
       </div>
     </div>
-    <div className="sticky z-50 bottom-0 bg-gray-800 p-4 text-gray-200 text-sm font-mono dark:bg-gray-950">
+    <div className="sticky z-10 bottom-0 bg-gray-800 p-4 text-gray-200 text-sm font-mono dark:bg-gray-950">
       <span>Julio + React + Tailwind</span>
     </div>
   </div>
