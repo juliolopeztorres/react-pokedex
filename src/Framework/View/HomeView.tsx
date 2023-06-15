@@ -105,7 +105,7 @@ const MapPokemonDetail = (pokemon : PokemonApi) : PokemonDetail => new PokemonDe
 
 const ucWords = (str : string) : string => str.charAt(0).toUpperCase() + str.slice(1)
 
-const DefaultView: (props: {onDarkModeChanged: (status: boolean) => void}) => React.ReactElement = ({onDarkModeChanged}): React.ReactElement => {
+const HomeView = () => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([])
   const [pokemonDetail, setPokemonDetail] = useState<PokemonDetail | null>(null)
   const [searchPokemonName, setSearchPokemonName] = useState<string>('')
@@ -161,9 +161,9 @@ const DefaultView: (props: {onDarkModeChanged: (status: boolean) => void}) => Re
     setShowPokemonAltArt(show)
   }
 
-  return <div className='flex flex-col min-h-screen dark:bg-slate-800'>
+  return <React.Fragment>
     {(pokemonDetail && showPokemonAltArt) &&
-      <div className="z-50" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div className="z-50" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <div className="fixed inset-0 bg-gray-500 dark:bg-gray-700 bg-opacity-75 dark:bg-opacity-90 transition-opacity"/>
         <div className="fixed inset-0 z-50 overflow-y-auto" onClick={() => onPokemonArtClicked(false)}>
           <div className="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
@@ -175,86 +175,57 @@ const DefaultView: (props: {onDarkModeChanged: (status: boolean) => void}) => Re
           </div>
         </div>
       </div>}
-    <div className='sticky z-10 top-0 flex flex-row bg-orange-600 shadow-md mb-4 pl-2 py-5 dark:bg-orange-800 dark:shadow-gray-700' style={{cursor: 'pointer'}}>
-      <div className="w-10 self-center">
-        <img src="img/pokeball.png" className='w-7 mx-auto text-white font-mono dark:text-gray-200 text-xs' alt="pokeball"/>
+    <div className='pl-2 mb-4 flex flex-row'>
+      <div className='basis-3/4'>
+        <input type="search"
+               className='
+             w-[12rem]
+             md:w-[20rem]
+             pl-2
+             py-1
+             md:pl-6
+             truncate
+             focus:shadow-md dark:shadow-gray-700
+             border
+             border-red-200
+             rounded-lg hover:border-red-400 focus:outline-none
+             placeholder:text-red-200
+             text-red-400
+             dark:bg-slate-600
+             dark:placeholder:text-gray-200
+             dark:text-gray-200
+             dark:border-red-400
+             '
+               placeholder={'Start typing a Pokémon name...'} value={searchPokemonName}
+               onChange={(e) => {
+                 onSearchPokemonChanged(e.target.value)
+               }}/>
+        {searchPokemonName.length !== 0 && <span
+          className='w-5 h-5 absolute ml-[-1.25rem] mt-[0.25rem] text-orange-500 font-mono dark:text-gray-200'
+          style={{cursor: 'pointer'}}
+          onClick={() => onSearchPokemonChanged('')}
+        >x</span>}
       </div>
-      <span className='text-white text-2xl font-mono ml-2 grow'>Pokédex</span>
-      <div className='mr-2'>
-        <label className="relative inline-flex items-center cursor-pointer align-middle">
-          <input type="checkbox" value="" className="sr-only peer" onChange={(e) => onDarkModeChanged(e.target.checked)}/>
-            <div className="w-11
-            h-6
-            bg-orange-200
-            rounded-full
-            peer
-            peer-focus:outline-none
-            peer-checked:after:translate-x-full
-            peer-checked:after:border-white
-            peer-checked:bg-orange-400
-            after:content-['']
-            after:absolute
-            after:top-[2px]
-            after:left-[2px]
-            after:bg-orange-600
-            after:rounded-full
-            after:h-5 after:w-5 after:transition-all
-            "/>
-        </label>
+      <div className="basis-1/4 flex flex-row place-content-end pr-2">
+        <label htmlFor="pokemon-gen" className="
+        self-center mr-1
+        text-sm font-mono text-slate-800 dark:text-gray-200
+        before:md:content-['Pokémon\00a0gen.'] before:content-['Gen.']
+        "/>
+        <select id='pokemon-gen' className="
+        text-end
+        px-2
+      bg-white
+      border border-red-200 text-red-400 text-sm rounded-lg focus:outline-none
+      hover:border-red-400
+      dark:bg-slate-600 dark:border-red-400
+      dark:text-gray-200
+      " onChange={(e) => onGenerationChanged(e.target.value)}>
+          {Object.keys(generationsInfo).map((key) => <option key={key} value={key}>{key}</option>)}
+        </select>
       </div>
     </div>
-    <div className="grow">
-      <div className='pl-2 mb-4 flex flex-row'>
-        <div className='basis-3/4'>
-          <input type="search"
-                 className='
-               w-[12rem]
-               md:w-[20rem]
-               pl-2
-               py-1
-               md:pl-6
-               truncate
-               focus:shadow-md dark:shadow-gray-700
-               border
-               border-red-200
-               rounded-lg hover:border-red-400 focus:outline-none
-               placeholder:text-red-200
-               text-red-400
-               dark:bg-slate-600
-               dark:placeholder:text-gray-200
-               dark:text-gray-200
-               dark:border-red-400
-               '
-                 placeholder={'Start typing a Pokémon name...'} value={searchPokemonName}
-                 onChange={(e) => {
-                   onSearchPokemonChanged(e.target.value)
-                 }}/>
-          {searchPokemonName.length !== 0 && <span
-            className='w-5 h-5 absolute ml-[-1.25rem] mt-[0.25rem] text-orange-500 font-mono dark:text-gray-200'
-            style={{cursor: 'pointer'}}
-            onClick={() => onSearchPokemonChanged('')}
-          >x</span>}
-        </div>
-        <div className="basis-1/4 flex flex-row place-content-end pr-2">
-          <label htmlFor="pokemon-gen" className="
-          self-center mr-1
-          text-sm font-mono text-slate-800 dark:text-gray-200
-          before:md:content-['Pokémon\00a0gen.'] before:content-['Gen.']
-          "/>
-          <select id='pokemon-gen' className="
-          text-end
-          px-2
-        bg-white
-        border border-red-200 text-red-400 text-sm rounded-lg focus:outline-none
-        hover:border-red-400
-        dark:bg-slate-600 dark:border-red-400
-        dark:text-gray-200
-        " onChange={(e) => onGenerationChanged(e.target.value)}>
-            {Object.keys(generationsInfo).map((key) => <option key={key} value={key}>{key}</option>)}
-          </select>
-        </div>
-      </div>
-      <div className='mb-4 flex md:flex-row flex-col-reverse md:max-h-[40rem]'>
+    <div className='mb-4 flex md:flex-row flex-col-reverse md:max-h-[40rem]'>
         <div className='mx-2 basis-2/3 p-4 border rounded-md border-orange-400 shadow dark:shadow-gray-700' style={{ overflowY: 'scroll' }}>
           <ul className='
         columns-2
@@ -324,6 +295,7 @@ const DefaultView: (props: {onDarkModeChanged: (status: boolean) => void}) => Re
             </div>
             <div className='flex flex-row self-center mb-4'>
               {pokemonDetail.types.map((type) => <div
+                key={type}
                 className='
                 bg-orange-100 border border-orange-400 dark:bg-orange-700
                 w-fit px-2 py-1 mr-1 dark:text-gray-200
@@ -332,7 +304,7 @@ const DefaultView: (props: {onDarkModeChanged: (status: boolean) => void}) => Re
                 style={{ cursor: 'pointer' }}>{type}</div>)}
             </div>
             <div className='self-center flex flex-row mb-4'>
-              {pokemonDetail.backSprites.map((sprite) => <img src={sprite} className='w-[10rem]' alt="Pokemon back sprite"/>)}
+              {pokemonDetail.backSprites.map((sprite) => <img key={sprite} src={sprite} className='w-[10rem]' alt="Pokemon back sprite"/>)}
             </div>
             <div className='
             w-100 border rounded border-orange-400
@@ -347,11 +319,7 @@ const DefaultView: (props: {onDarkModeChanged: (status: boolean) => void}) => Re
             </div>
           </div>}
       </div>
-    </div>
-    <div className="sticky z-10 bottom-0 bg-gray-800 p-4 text-gray-200 text-sm font-mono dark:bg-gray-950">
-      <span>Julio + React + Tailwind</span>
-    </div>
-  </div>
+  </React.Fragment>
 };
 
-export default hot(DefaultView);
+export default hot(HomeView);

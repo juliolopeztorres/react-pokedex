@@ -1,32 +1,31 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { hot } from "react-hot-loader/root";
 import { Route, Switch } from 'react-router-dom';
-import DefaultView from '../View/DefaultView';
+import HomeView from '../View/HomeView';
 import ServiceContainer from '../DependencyInjection/ServiceContainer';
 import ServiceContainerInterface from '../DependencyInjection/ServiceContainerInterface';
+import NavBar from "../View/Component/NavBar";
+import DarkModeContainer from "../View/Component/DarkModeContainer";
+import Footer from "../View/Component/Footer";
+import NotFoundView from "../View/NotFoundView";
 
 type routes = 'home';
 
 const serviceContainer: ServiceContainerInterface = new ServiceContainer();
 
 const RouteService = () => {
-  const [darkMode, setDarkMode] = useState<boolean>(false)
-
-  const onDarkModeChanged = (status: boolean) => {
-    setDarkMode(status)
-  }
-
-  return (<React.Fragment>
-      <div className={darkMode ? 'dark' : ''}>
-        <Switch>
-          <Route exact path={getRoute('home')}>
-            <DefaultView onDarkModeChanged={onDarkModeChanged}/>
-          </Route>
-          <h1>404 - Route not found</h1>
-        </Switch>
-      </div>
-    </React.Fragment>
-  );
+  return <DarkModeContainer>
+    <NavBar/>
+    <div className="grow">
+      <Switch>
+        <Route exact path={getRoute('home')}>
+          <HomeView/>
+        </Route>
+        <NotFoundView/>
+      </Switch>
+    </div>
+    <Footer/>
+  </DarkModeContainer>;
 }
 
 export default hot(RouteService)
