@@ -66,6 +66,26 @@ const generationsInfo: {[key:string]: {offset: number, limit: number}} = {
     offset: 386,
     limit: 107
   },
+  '5th': {
+    offset: 493,
+    limit: 156
+  },
+  '6th': {
+    offset: 649,
+    limit: 72
+  },
+  '7th': {
+    offset: 721,
+    limit: 88
+  },
+  '8th': {
+    offset: 809,
+    limit: 96
+  },
+  '9th': {
+    offset: 905,
+    limit: 111
+  },
 }
 
 const MapPokemon = (namedApiResponse : NamedAPIResource) : Pokemon => new Pokemon(
@@ -144,7 +164,7 @@ const DefaultView: (props: {onDarkModeChanged: (status: boolean) => void}) => Re
   return <div className='flex flex-col min-h-screen dark:bg-slate-800'>
     {(pokemonDetail && showPokemonAltArt) &&
       <div className="z-50" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"/>
+        <div className="fixed inset-0 bg-gray-500 dark:bg-gray-700 bg-opacity-75 dark:bg-opacity-90 transition-opacity"/>
         <div className="fixed inset-0 z-50 overflow-y-auto" onClick={() => onPokemonArtClicked(false)}>
           <div className="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
             <div
@@ -155,9 +175,9 @@ const DefaultView: (props: {onDarkModeChanged: (status: boolean) => void}) => Re
           </div>
         </div>
       </div>}
-    <div className='sticky z-10 top-0 flex flex-row bg-orange-600 shadow-md mb-4 pl-2 py-5 dark:bg-orange-800 dark:shadow-gray-700'>
+    <div className='sticky z-10 top-0 flex flex-row bg-orange-600 shadow-md mb-4 pl-2 py-5 dark:bg-orange-800 dark:shadow-gray-700' style={{cursor: 'pointer'}}>
       <div className="w-10 self-center">
-        <img src="img/pokeball.png" className='w-7 mx-auto' alt="pokeball"/>
+        <img src="img/pokeball.png" className='w-7 mx-auto text-white font-mono dark:text-gray-200 text-xs' alt="pokeball"/>
       </div>
       <span className='text-white text-2xl font-mono ml-2 grow'>Pokédex</span>
       <div className='mr-2'>
@@ -299,7 +319,7 @@ const DefaultView: (props: {onDarkModeChanged: (status: boolean) => void}) => Re
                 }}>x</span>
             </div>
             <div className='self-center mb-4 flex flex-col' style={{cursor: 'pointer'}} onClick={() => onPokemonArtClicked(true)}>
-              <img src={pokemonDetail.image} alt="Pokemon image" className='w-[10rem] md:w-[15rem]'/>
+              <img src={pokemonDetail.image} alt="Pokemon image" className='w-[10rem] md:w-[15rem] dark:text-gray-200 text-xs text-center'/>
               <span className="italic text-gray-400 text-xs text-center mt-2">Click to show alternative art</span>
             </div>
             <div className='flex flex-row self-center mb-4'>
