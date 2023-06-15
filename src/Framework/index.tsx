@@ -11,10 +11,11 @@ if (!anchor) {
   throw new Error('Could not load the app')
 }
 
-createRoot(
-  anchor
-).render(<React.StrictMode>
-  <BrowserRouter>
-    <RouteService/>
-  </BrowserRouter>
-</React.StrictMode>)
+createRoot(anchor)
+  .render(
+    <React.StrictMode>
+      <BrowserRouter>
+        <RouteService/>
+      </BrowserRouter>
+    </React.StrictMode>
+  )
