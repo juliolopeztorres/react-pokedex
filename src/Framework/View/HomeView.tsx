@@ -177,8 +177,10 @@ const HomeView = () => {
       </div>}
     <div className='pl-2 mb-4 flex flex-row'>
       <div className='basis-3/4'>
-        <input type="search"
-               className='
+        <div className="flex flex-row">
+          <input type="search"
+                 className='
+             pr-6
              w-[12rem]
              md:w-[20rem]
              pl-2
@@ -196,15 +198,16 @@ const HomeView = () => {
              dark:text-gray-200
              dark:border-red-400
              '
-               placeholder={'Start typing a Pokémon name...'} value={searchPokemonName}
-               onChange={(e) => {
-                 onSearchPokemonChanged(e.target.value)
-               }}/>
-        {searchPokemonName.length !== 0 && <span
-          className='w-5 h-5 absolute ml-[-1.25rem] mt-[0.25rem] text-orange-500 font-mono dark:text-gray-200'
-          style={{cursor: 'pointer'}}
-          onClick={() => onSearchPokemonChanged('')}
-        >x</span>}
+                 placeholder={'Start typing a Pokémon name...'} value={searchPokemonName}
+                 onChange={(e) => {
+                   onSearchPokemonChanged(e.target.value)
+                 }}/>
+          {searchPokemonName.length !== 0 && <span
+            className='text-orange-500 font-mono dark:text-gray-200 ml-[-1.25rem] self-center'
+            style={{cursor: 'pointer'}}
+            onClick={() => onSearchPokemonChanged('')}
+          >x</span>}
+        </div>
       </div>
       <div className="basis-1/4 flex flex-row place-content-end pr-2">
         <label htmlFor="pokemon-gen" className="
