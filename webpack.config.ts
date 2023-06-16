@@ -36,7 +36,7 @@ export default {
     host: '0.0.0.0',
     publicPath: "http://0.0.0.0:3000/dist/",
     historyApiFallback: true,
-    hotOnly: true
   },
+  devtool: 'source-map',
   plugins: [new webpack.HotModuleReplacementPlugin(), new Dotenv.default()],
 };
