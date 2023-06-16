@@ -1,8 +1,9 @@
 {
   "scripts": {
-    "build": "ENV=prod webpack --mode=production",
+    "build": "ENV=prod webpack --mode=production --no-devtool",
     "build:dev": "webpack",
-    "serve": "webpack serve"
+    "serve": "webpack serve",
+    "serve:hot": "webpack serve --hot-only"
   },
   "license": "UNLICENSED",
   "dependencies": {
