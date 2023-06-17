@@ -2,6 +2,9 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from "react-router-dom";
 import RouteService from "./Service/RouteService";
+import NavBar from "./View/SharedView/NavBar";
+import Footer from "./View/SharedView/Footer";
+import DarkModeContainer from "./View/Component/DarkModeContainer";
 
 import './styles.css';
 
@@ -13,9 +16,15 @@ if (!anchor) {
 
 createRoot(anchor)
   .render(
-    <React.StrictMode>
+    // <React.StrictMode>
       <BrowserRouter>
-        <RouteService/>
+        <DarkModeContainer>
+          <NavBar/>
+          <div className="grow">
+            <RouteService/>
+          </div>
+          <Footer/>
+        </DarkModeContainer>
       </BrowserRouter>
-    </React.StrictMode>
+    // </React.StrictMode>
   )
