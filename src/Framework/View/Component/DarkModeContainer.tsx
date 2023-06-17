@@ -1,7 +1,6 @@
-import React, { createContext, useState } from 'react'
+import React, { useState } from 'react'
 import { hot } from "react-hot-loader/root";
-
-export const DarkModeContext = createContext<[boolean, (status: boolean) => void]>([false, () => {}])
+import DarkModeContextService from "../../Service/DarkModeContextService";
 
 const DarkModeContainer: (props: {children: React.ReactNode}) => React.ReactElement = ({children}) => {
   const [darkMode, setDarkMode] = useState<boolean>('true' === localStorage.getItem('darkMode'))
@@ -13,9 +12,9 @@ const DarkModeContainer: (props: {children: React.ReactNode}) => React.ReactElem
 
   return <div className={`${darkMode ? 'dark' : ''}`}>
     <div className="antialiased transition-colors duration-500 ease-in-out flex flex-col min-h-screen dark:bg-slate-800 dark:text-gray-200">
-      <DarkModeContext.Provider value={[darkMode, onDarkModeChanged]}>
+      <DarkModeContextService.Provider value={[darkMode, onDarkModeChanged]}>
         {children}
-      </DarkModeContext.Provider>
+      </DarkModeContextService.Provider>
     </div>
   </div>
 }
