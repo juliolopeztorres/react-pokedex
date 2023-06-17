@@ -22,7 +22,7 @@ const LoadingContainer: (props: {children: React.ReactElement}) => React.ReactEl
   }
 
   return <LoadingContextService.Provider value={[isLoading, onLoadingChanged]}>
-    {isLoading && <div className='text-center'><Loading/></div>}
+    {isLoading && <div className='grid h-full place-content-center'><Loading/></div>}
 
     {children}
   </LoadingContextService.Provider>
