@@ -1,14 +1,15 @@
 import React, { useContext } from "react";
 import { hot } from "react-hot-loader/root";
-import { DarkModeContext } from "./DarkModeContainer";
 import { getRoute } from "../../Service/RouteService";
 import { useHistory } from "react-router";
+import DarkModeContextService from "../../Service/DarkModeContextService";
 
 const NavBar = () => {
-  const [darkMode, onDarkModeChanged] = useContext(DarkModeContext)
+
+  const [darkMode, onDarkModeChanged] = useContext(DarkModeContextService)
   const history = useHistory()
 
-  return <div className='sticky z-10 top-0 flex flex-row bg-orange-600 shadow-md mb-4 pl-2 py-5 dark:bg-orange-800 dark:shadow-gray-700' style={{cursor: 'pointer'}}>
+  return <div className='sticky top-0 flex flex-row bg-orange-600 shadow-md mb-4 pl-2 py-5 dark:bg-orange-800 dark:shadow-gray-700' style={{cursor: 'pointer'}}>
     <div className="grow flex flex-row">
       <div className="w-10 self-center">
         <img src="img/pokeball.png" className='w-7 mx-auto text-white font-mono dark:text-gray-200 text-xs' alt="pokeball"
