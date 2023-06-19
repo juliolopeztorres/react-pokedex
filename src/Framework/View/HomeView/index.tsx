@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { hot } from "react-hot-loader/root";
-import PokemonList, { Pokemon } from "./PokemonList";
+import PokemonList from "./PokemonList";
 import PokemonModal from "./PokemonModal";
 import PokemonDetail from "./PokemonDetail";
 import LoadingContainer from "../Component/LoadingContainer";
 import generationsInfo from "../../../Domain/GenerationInfo";
+import Pokemon from "../../../Domain/Model/Pokemon";
 
 const HomeView = () => {
   const [currentGeneration, setCurrentGeneration] = useState<string>(Object.keys(generationsInfo)[0])
@@ -84,7 +85,6 @@ const HomeView = () => {
             searchPokemonName={searchPokemonName}
             onPokemonClicked={(pokemon : Pokemon) => setPokemon(pokemon)}
             generation={currentGeneration}
-            generationInfo={generationsInfo[currentGeneration]}
           />
         </LoadingContainer>
       </div>

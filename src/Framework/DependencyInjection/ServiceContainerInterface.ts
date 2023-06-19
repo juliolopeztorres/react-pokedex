@@ -1,3 +1,6 @@
+
+export type ServiceType = 'GetPokemonsUseCase' | 'PokemonRepository'
+
 export default interface ServiceContainerInterface {
-  getService(name: string): any;
+  getService(name: ServiceType): any;
 }

@@ -1,62 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { hot } from "react-hot-loader/root";
-import { Pokemon as PokemonApi, PokemonClient } from "pokenode-ts";
-import { Pokemon } from "./PokemonList";
 import ucWords from "../../../Domain/Util/ucWords";
 import logWithLevel, { Level } from "../../../Domain/Util/logWithLevel";
 import LoadingContextService from "../../Service/LoadingContextService";
-
-const pokemonClient = new PokemonClient()
-
-// type PokemonDetailApi = {
-//   id: number, name: string, types: {type: {name: string}}[], sprites: {[key: string]: unknown},
-//   stats: {stat: {name: string}, base_stat: number}[]
-// }
-
-const MapPokemonDetail = (pokemon : PokemonApi) : PokemonDetailModel => new PokemonDetailModel(
-  pokemon.id,
-  pokemon.name,
-  'https://img.pokemondb.net/artwork/vector/' + pokemon.name + '.png',
-  // 'https://img.pokemondb.net/artwork/' + pokemon.name + '.jpg',
-  pokemon.types.map((pokemonType) => pokemonType.type.name),
-  [pokemon.sprites.back_default as string, pokemon.sprites.back_shiny as string],
-  pokemon.stats.map((pokemonStat) => new BaseStat(pokemonStat.stat.name, pokemonStat.base_stat))
-)
-
-class BaseStat {
-  name : string
-  value : number
-
-  constructor(name : string, value : number) {
-    this.name = name;
-    this.value = value;
-  }
-}
-
-export class PokemonDetailModel {
-  id: number
-  name: string
-  image : string
-  types : string[]
-  backSprites : string[]
-  baseStats : BaseStat[]
-
-  constructor(
-    id : number,
-    name : string,
-    image : string,
-    types : string[],
-    backSprites : string[],
-    baseStats : BaseStat[]
-  ) {
-    this.id = id;
-    this.name = name;
-    this.image = image;
-    this.types = types;
-    this.backSprites = backSprites;
-    this.baseStats = baseStats
-  }
-}
+import Pokemon from "../../../Domain/Model/Pokemon";
+import { default as PokemonDetailModel } from "../../../Domain/Model/PokemonDetail";
+import ServiceContainerContextService from "../../Service/ServiceContainerContextService";
+import GetPokemonsUseCase from "../../../Domain/UseCase/GetPokemonsUseCase";
 
 type PokemonDetailCallback = {
   onPokemonArtClicked : () => void,
@@ -65,28 +15,26 @@ type PokemonDetailCallback = {
 
 const PokemonDetail: (props : { pokemon : Pokemon, callback: PokemonDetailCallback}) => React.ReactNode =
   ({ pokemon, callback  }) => {
-
     const [isLoading, setIsLoading] = useContext(LoadingContextService)
+    const serviceContainer = useContext(ServiceContainerContextService)
+
+    const getPokemonsUseCase = useMemo<GetPokemonsUseCase>(
+      () => serviceContainer.getService('GetPokemonsUseCase'),
+      []
+    )
+
     const [pokemonDetail, setPokemonDetail] = useState<PokemonDetailModel | null>(null)
 
     useEffect(() => {
       setIsLoading(true)
 
-      // setPokemonDetail(MapPokemonDetail({
-      //   id: 1,
-      //   name: 'bulbasaur',
-      //   types: [],
-      //   sprites: {},
-      //   stats: [{stat: {name: 'hola'}, base_stat: 10}]
-      // }))
+      getPokemonsUseCase.getById(pokemon.id)
+        .then((pokemonData) => setPokemonDetail(pokemonData))
+        .catch((error) => {
+          logWithLevel(Level.ERROR, 'error getting pokemon from repository by id', { indentation: 2, context: error })
+          setPokemonDetail(null)
+        }).finally(() => setIsLoading(false))
 
-      // setIsLoading(false)
-
-      pokemonClient.getPokemonById(pokemon.id)
-        .then((pokemonData) => {
-          setIsLoading(false)
-          setPokemonDetail(MapPokemonDetail(pokemonData))
-        }).catch((error) => {logWithLevel(Level.ERROR, 'error API detalle', {indentation: 2, context: error})})
     }, [pokemon])
 
     return <React.Fragment>

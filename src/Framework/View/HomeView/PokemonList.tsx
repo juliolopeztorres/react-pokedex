@@ -1,68 +1,46 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { hot } from "react-hot-loader/root";
-import { NamedAPIResource, PokemonClient } from "pokenode-ts";
 import logWithLevel, { Level } from "../../../Domain/Util/logWithLevel";
 import ucWords from "../../../Domain/Util/ucWords";
 import LoadingContextService from "../../Service/LoadingContextService";
-
-const pokemonClient = new PokemonClient()
-
-const MapPokemon = (namedApiResponse : NamedAPIResource) : Pokemon => new Pokemon(
-  parseInt(namedApiResponse.url.split('/').filter((token) => token.length).pop() as string),
-  namedApiResponse.name
-)
-
-export class Pokemon {
-  id : number
-  name : string
-
-  constructor(id : number, name : string) {
-    this.id = id;
-    this.name = name;
-  }
-}
+import ServiceContainerContextService from "../../Service/ServiceContainerContextService";
+import GetPokemonsUseCase from "../../../Domain/UseCase/GetPokemonsUseCase";
+import Pokemon from "../../../Domain/Model/Pokemon";
 
 const PokemonList: (props: {
   searchPokemonName: string,
   onPokemonClicked: (pokemon: Pokemon) => void,
   generation: string,
-  generationInfo: {
-    offset: number,
-    limit: number
-  },
 }) => React.ReactNode =
   ({
      searchPokemonName,
      onPokemonClicked,
      generation,
-     generationInfo
   }) => {
     const [isLoading, setIsLoading] = useContext(LoadingContextService)
+    const serviceContainer = useContext(ServiceContainerContextService)
+
+    const getPokemonsUseCase = useMemo<GetPokemonsUseCase>(
+      () => serviceContainer.getService('GetPokemonsUseCase'),
+      []
+    )
+
     const [pokemons, setPokemons] = useState<Pokemon[]>([])
+
 
     useEffect(() => {
       setIsLoading(true)
 
-      const localStorageKey = `pokemon-${generation}`
-      const pokemonsSaved : string | null = localStorage.getItem(localStorageKey)
+      getPokemonsUseCase
+        .getAll(generation)
+        .then((pokemons) => {
+          setPokemons(pokemons)
+        })
+        .catch((error) => {
+          logWithLevel(Level.ERROR, 'error getting pokemons from repository', { indentation: 2, context: error })
+          setPokemons([])
+        }).finally(() => setIsLoading(false))
 
-      if (null === pokemonsSaved) {
-        pokemonClient.listPokemons(generationInfo.offset, generationInfo.limit)
-          .then((response) => {
-            const pokemons = response.results.map(MapPokemon)
-            localStorage.setItem(localStorageKey, JSON.stringify(pokemons))
-
-            setIsLoading(false)
-            setPokemons(pokemons)
-          })
-          .catch((error) => logWithLevel(Level.ERROR, 'Error API', {indentation: 2, context: error}))
-
-        return
-      }
-
-      setPokemons(JSON.parse(pokemonsSaved))
-
-      setIsLoading(false)
     }, [generation]);
 
     return !isLoading && <ul className='
