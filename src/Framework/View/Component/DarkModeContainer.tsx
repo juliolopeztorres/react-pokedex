@@ -3,6 +3,7 @@ import { hot } from "react-hot-loader/root";
 import DarkModeContextService from "../../Service/DarkModeContextService";
 
 const DarkModeContainer: (props: {children: React.ReactNode}) => React.ReactElement = ({children}) => {
+  // TODO: Inject 'localStorage' through DI Container
   const [darkMode, setDarkMode] = useState<boolean>('true' === localStorage.getItem('darkMode'))
 
   const onDarkModeChanged = (status : boolean) => {
