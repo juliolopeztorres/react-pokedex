@@ -8,7 +8,7 @@ import { default as PokemonDetailModel } from "../../../Domain/Model/PokemonDeta
 import ServiceContainerContextService from "../../Service/ServiceContainerContextService";
 import GetPokemonsUseCase from "../../../Domain/UseCase/GetPokemonsUseCase";
 
-type PokemonDetailCallback = {
+export type PokemonDetailCallback = {
   onPokemonArtClicked : () => void,
   onCloseClicked : () => void
 }
@@ -48,7 +48,7 @@ const PokemonDetail: (props : { pokemon : Pokemon, callback: PokemonDetailCallba
               ">
                 #{pokemonDetail.id} {ucWords(pokemonDetail.name)}
               </span>
-            <span className="
+            <span data-test-id='closeBtn' className="
                 w-5 h-6
                 text-orange-600 dark:text-orange-100
                 text-center
@@ -59,7 +59,7 @@ const PokemonDetail: (props : { pokemon : Pokemon, callback: PokemonDetailCallba
               callback.onCloseClicked()
             }}>x</span>
           </div>
-          <div className='self-center mb-4 flex flex-col' style={{ cursor: 'pointer' }}
+          <div data-test-id='pokemonImage' className='self-center mb-4 flex flex-col' style={{ cursor: 'pointer' }}
                onClick={callback.onPokemonArtClicked}>
             <img src={pokemonDetail.image} alt="Pokemon image"
                  className='w-[10rem] md:w-[15rem] dark:text-gray-200 text-xs text-center'/>

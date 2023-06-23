@@ -1,32 +1,47 @@
 import Service from "../Domain/Service";
-import { PokemonClient } from "pokenode-ts";
-import generationInfo from "../Domain/GenerationInfo";
 import Exception from "../Domain/Model/Exception";
-import GetPokemonsRepository from "../Domain/UseCase/GetPokemonsRepository";
+import GetPokemonsRepositoryInterface from "../Domain/UseCase/GetPokemonsRepositoryInterface";
 import Pokemon from "../Domain/Model/Pokemon";
 import PokemonDetail from "../Domain/Model/PokemonDetail";
 import { MapPokemon, MapPokemonDetail } from "./Mapper/PokemonMapper";
+import generationsInfo, { Generation } from "../Domain/Model/GenerationInfo";
+import { NamedAPIResourceList } from "pokenode-ts";
 
-export default class PokemonRepository implements Service, GetPokemonsRepository {
+export type PokemonApiMin = {
+  id: number,
+  name: string,
+  types: {type: {name: string}}[],
+  sprites: {back_default: string | null, back_shiny: string | null},
+  stats: {stat: {name: string}, base_stat: number}[]
+}
+
+export interface PokemonClient {
+  listPokemons(offset: number, limit: number): Promise<NamedAPIResourceList>,
+  getPokemonById(id: number): Promise<PokemonApiMin>
+}
+
+export default class PokemonRepository implements Service, GetPokemonsRepositoryInterface {
 
   constructor(
     private readonly storage: Storage,
     private readonly client: PokemonClient
   ) {}
 
-  getByGeneration(generation: string): Promise<Pokemon[]> {
+  getByGeneration(generation: Generation): Promise<Pokemon[]> {
     const localStorageKey = `pokemon-${generation}`
     const pokemonsSaved : string | null = this.storage.getItem(localStorageKey)
 
     if (null === pokemonsSaved) {
-      return this.client.listPokemons(generationInfo[generation].offset, generationInfo[generation].limit)
+      return this.client.listPokemons(generationsInfo[generation].offset, generationsInfo[generation].limit)
           .then((response) => {
             const pokemons = response.results.map(MapPokemon)
-            localStorage.setItem(localStorageKey, JSON.stringify(pokemons))
+            this.storage.setItem(localStorageKey, JSON.stringify(pokemons))
 
             return pokemons
           })
-          .catch((error) => Promise.reject(Exception.create('Error API Pokemon List', error)))
+          .catch((error) => {
+            return Promise.reject(Exception.create('Error API Pokemon List', error))
+          })
     }
 
     return Promise.resolve(JSON.parse(pokemonsSaved))

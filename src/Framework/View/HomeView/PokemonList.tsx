@@ -6,11 +6,12 @@ import LoadingContextService from "../../Service/LoadingContextService";
 import ServiceContainerContextService from "../../Service/ServiceContainerContextService";
 import GetPokemonsUseCase from "../../../Domain/UseCase/GetPokemonsUseCase";
 import Pokemon from "../../../Domain/Model/Pokemon";
+import { Generation } from "../../../Domain/Model/GenerationInfo";
 
 const PokemonList: (props: {
   searchPokemonName: string,
   onPokemonClicked: (pokemon: Pokemon) => void,
-  generation: string,
+  generation: Generation,
 }) => React.ReactNode =
   ({
      searchPokemonName,
@@ -27,7 +28,6 @@ const PokemonList: (props: {
 
     const [pokemons, setPokemons] = useState<Pokemon[]>([])
 
-
     useEffect(() => {
       setIsLoading(true)
 
@@ -43,7 +43,7 @@ const PokemonList: (props: {
 
     }, [generation]);
 
-    return !isLoading && <ul className='
+    return !isLoading && <ul data-test-id='list' className='
         columns-2
         md:columns-3
         lg:columns-4

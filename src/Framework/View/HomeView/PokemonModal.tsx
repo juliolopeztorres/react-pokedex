@@ -9,7 +9,7 @@ const PokemonModal: (props: {name: string, onPokemonArtClicked: () => void}) => 
       <div className="flex min-h-full items-center justify-center text-center p-4 sm:p-0">
         <div className="rounded-lg bg-white">
           <div className="text-end mt-1">
-            <span className='text-black text-xl font-mono hover:text-orange-600 mr-3' style={{cursor: 'pointer'}} onClick={() => onPokemonArtClicked()}>x</span>
+            <span data-test-id='closeBtn' className='text-black text-xl font-mono hover:text-orange-600 mr-3' style={{cursor: 'pointer'}} onClick={() => onPokemonArtClicked()}>x</span>
           </div>
           <img className='px-4 pb-2' src={'https://img.pokemondb.net/artwork/' + name + '.jpg'} alt="Pokemon image"/>
           <p className="italic text-gray-400 text-xs text-center mb-2">.jpg art with white background</p>

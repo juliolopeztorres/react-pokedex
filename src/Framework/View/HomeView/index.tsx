@@ -4,11 +4,11 @@ import PokemonList from "./PokemonList";
 import PokemonModal from "./PokemonModal";
 import PokemonDetail from "./PokemonDetail";
 import LoadingContainer from "../Component/LoadingContainer";
-import generationsInfo from "../../../Domain/GenerationInfo";
 import Pokemon from "../../../Domain/Model/Pokemon";
+import { Generation, generationLabels } from "../../../Domain/Model/GenerationInfo";
 
 const HomeView = () => {
-  const [currentGeneration, setCurrentGeneration] = useState<string>(Object.keys(generationsInfo)[0])
+  const [currentGeneration, setCurrentGeneration] = useState<Generation>(generationLabels[0])
   const [searchPokemonName, setSearchPokemonName] = useState<string>('')
   const [pokemon, setPokemon] = useState<Pokemon | null>(null)
   const [showPokemonAltArt, setShowPokemonAltArt] = useState<boolean>(false)
@@ -17,7 +17,7 @@ const HomeView = () => {
     setSearchPokemonName(name.trim())
   }
 
-  const onGenerationChanged = (generation: string) => {
+  const onGenerationChanged = (generation: Generation) => {
     setSearchPokemonName('')
     setPokemon(null)
     setCurrentGeneration(generation)
@@ -28,31 +28,34 @@ const HomeView = () => {
     <div className='pl-2 mb-4 flex flex-row'>
       <div className='basis-3/4'>
         <div className="flex flex-row">
-          <input type="search"
-                 className='
-             pr-6
-             w-[12rem]
-             md:w-[20rem]
-             pl-2
-             py-1
-             md:pl-6
-             truncate
-             focus:shadow-md dark:shadow-gray-700
-             border
-             border-red-200
-             rounded-lg hover:border-red-400 focus:outline-none
-             placeholder:text-red-200
-             text-red-400
-             dark:bg-slate-600
-             dark:placeholder:text-gray-200
-             dark:text-gray-200
-             dark:border-red-400
+          <input
+            data-test-id='search'
+            type="search"
+             className='
+               pr-6
+               w-[12rem]
+               md:w-[20rem]
+               pl-2
+               py-1
+               md:pl-6
+               truncate
+               focus:shadow-md dark:shadow-gray-700
+               border
+               border-red-200
+               rounded-lg hover:border-red-400 focus:outline-none
+               placeholder:text-red-200
+               text-red-400
+               dark:bg-slate-600
+               dark:placeholder:text-gray-200
+               dark:text-gray-200
+               dark:border-red-400
              '
-                 placeholder={'Start typing a Pokémon name...'} value={searchPokemonName}
-                 onChange={(e) => {
-                   onSearchPokemonChanged(e.target.value)
-                 }}/>
+             placeholder={'Start typing a Pokémon name...'} value={searchPokemonName}
+             onChange={(e) => {
+               onSearchPokemonChanged(e.target.value)
+             }}/>
           {searchPokemonName.length !== 0 && <span
+            data-test-id='clearSearchPokemonName'
             className='text-orange-500 font-mono dark:text-gray-200 ml-[-1.25rem] self-center'
             style={{cursor: 'pointer'}}
             onClick={() => onSearchPokemonChanged('')}
@@ -73,8 +76,8 @@ const HomeView = () => {
       hover:border-red-400
       dark:bg-slate-600 dark:border-red-400
       dark:text-gray-200
-      " onChange={(e) => onGenerationChanged(e.target.value)}>
-          {Object.keys(generationsInfo).map((key) => <option key={key} value={key}>{key}</option>)}
+      " onChange={(e) => onGenerationChanged(e.target.value as Generation)}>
+          {generationLabels.map((generationLabel) => <option key={generationLabel} value={generationLabel}>{generationLabel}</option>)}
         </select>
       </div>
     </div>

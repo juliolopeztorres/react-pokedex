@@ -1,14 +1,15 @@
-import { NamedAPIResource, Pokemon as PokemonApi } from "pokenode-ts";
+import { NamedAPIResource } from "pokenode-ts";
 import BaseStat from "../../Domain/Model/BaseStat";
 import Pokemon from "../../Domain/Model/Pokemon";
 import PokemonDetail from "../../Domain/Model/PokemonDetail";
+import { PokemonApiMin } from "../PokemonRepository";
 
 const MapPokemon = (namedApiResponse : NamedAPIResource) : Pokemon => new Pokemon(
   parseInt(namedApiResponse.url.split('/').filter((token) => token.length).pop() as string),
   namedApiResponse.name
 )
 
-const MapPokemonDetail = (pokemon : PokemonApi) : PokemonDetail => new PokemonDetail(
+const MapPokemonDetail = (pokemon : PokemonApiMin) : PokemonDetail => new PokemonDetail(
   pokemon.id,
   pokemon.name,
   'https://img.pokemondb.net/artwork/vector/' + pokemon.name + '.png',
