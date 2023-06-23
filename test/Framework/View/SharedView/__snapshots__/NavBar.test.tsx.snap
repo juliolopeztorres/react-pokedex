@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render 1`] = `
+<div>
+  <div
+    class="sticky top-0 flex flex-row bg-orange-600 shadow-md mb-4 pl-2 py-5 dark:bg-orange-800 dark:shadow-gray-700"
+    style="cursor: pointer;"
+  >
+    <div
+      class="grow flex flex-row"
+    >
+      <div
+        class="w-10 self-center"
+      >
+        <img
+          alt="pokeball"
+          class="w-7 mx-auto text-white font-mono dark:text-gray-200 text-xs"
+          data-test-id="logo"
+          src="img/pokeball.png"
+        />
+      </div>
+      <span
+        class="text-white text-2xl font-mono ml-2"
+      >
+        Pokédex
+      </span>
+    </div>
+    <div
+      class="mr-2"
+    >
+      <label
+        class="relative inline-flex items-center cursor-pointer align-middle"
+      >
+        <input
+          class="sr-only peer"
+          data-test-id="checkbox"
+          type="checkbox"
+          value=""
+        />
+        <div
+          class="w-11
+            h-6
+            bg-orange-200
+            rounded-full
+            peer
+            peer-focus:outline-none
+            peer-checked:after:translate-x-full
+            peer-checked:after:border-white
+            peer-checked:bg-orange-400
+            after:content-['']
+            after:absolute
+            after:top-[2px]
+            after:left-[2px]
+            after:bg-orange-600
+            after:rounded-full
+            after:h-5 after:w-5 after:transition-all
+            "
+        />
+      </label>
+    </div>
+  </div>
+</div>
+`

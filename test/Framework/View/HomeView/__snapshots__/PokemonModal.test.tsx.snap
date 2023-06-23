@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render 1`] = `
+<div>
+  <div
+    aria-labelledby="modal-title"
+    aria-modal="true"
+    class="z-50"
+    role="dialog"
+  >
+    <div
+      class="fixed inset-0 bg-gray-500 dark:bg-gray-700 bg-opacity-75 dark:bg-opacity-90 transition-opacity"
+    />
+    <div
+      class="fixed inset-0 z-50 overflow-y-auto"
+    >
+      <div
+        class="flex min-h-full items-center justify-center text-center p-4 sm:p-0"
+      >
+        <div
+          class="rounded-lg bg-white"
+        >
+          <div
+            class="text-end mt-1"
+          >
+            <span
+              class="text-black text-xl font-mono hover:text-orange-600 mr-3"
+              data-test-id="closeBtn"
+              style="cursor: pointer;"
+            >
+              x
+            </span>
+          </div>
+          <img
+            alt="Pokemon image"
+            class="px-4 pb-2"
+            src="https://img.pokemondb.net/artwork/bulbasaur.jpg"
+          />
+          <p
+            class="italic text-gray-400 text-xs text-center mb-2"
+          >
+            .jpg art with white background
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`

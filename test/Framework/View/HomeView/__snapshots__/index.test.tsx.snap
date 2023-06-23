@@ -1,0 +1,1221 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render 1`] = `
+<div>
+  <div
+    class="pl-2 mb-4 flex flex-row"
+  >
+    <div
+      class="basis-3/4"
+    >
+      <div
+        class="flex flex-row"
+      >
+        <input
+          class="
+               pr-6
+               w-[12rem]
+               md:w-[20rem]
+               pl-2
+               py-1
+               md:pl-6
+               truncate
+               focus:shadow-md dark:shadow-gray-700
+               border
+               border-red-200
+               rounded-lg hover:border-red-400 focus:outline-none
+               placeholder:text-red-200
+               text-red-400
+               dark:bg-slate-600
+               dark:placeholder:text-gray-200
+               dark:text-gray-200
+               dark:border-red-400
+             "
+          data-test-id="search"
+          placeholder="Start typing a Pokémon name..."
+          type="search"
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      class="basis-1/4 flex flex-row place-content-end pr-2"
+    >
+      <label
+        class="
+        self-center mr-1
+        text-sm font-mono text-slate-800 dark:text-gray-200
+        before:md:content-['Pokémon\\00a0gen.'] before:content-['Gen.']
+        "
+        for="pokemon-gen"
+      />
+      <select
+        class="
+        text-end
+        px-2
+      bg-white
+      border border-red-200 text-red-400 text-sm rounded-lg focus:outline-none
+      hover:border-red-400
+      dark:bg-slate-600 dark:border-red-400
+      dark:text-gray-200
+      "
+        id="pokemon-gen"
+      >
+        <option
+          value="1st"
+        >
+          1st
+        </option>
+        <option
+          value="2nd"
+        >
+          2nd
+        </option>
+        <option
+          value="3rd"
+        >
+          3rd
+        </option>
+        <option
+          value="4th"
+        >
+          4th
+        </option>
+        <option
+          value="5th"
+        >
+          5th
+        </option>
+        <option
+          value="6th"
+        >
+          6th
+        </option>
+        <option
+          value="7th"
+        >
+          7th
+        </option>
+        <option
+          value="8th"
+        >
+          8th
+        </option>
+        <option
+          value="9th"
+        >
+          9th
+        </option>
+      </select>
+    </div>
+  </div>
+  <div
+    class="mb-4 flex md:flex-row flex-col-reverse md:max-h-[40rem]"
+  >
+    <div
+      class="basis-2/3 mx-2 p-4 border rounded-md border-orange-400 shadow dark:shadow-gray-700 overflow-y-scroll"
+    >
+      <div>
+        Pokemon List
+        <span>
+          Pokemon search name: 
+        </span>
+        <span>
+          Pokemon generation: 
+          1st
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should render 2`] = `
+<div>
+  <div
+    class="pl-2 mb-4 flex flex-row"
+  >
+    <div
+      class="basis-3/4"
+    >
+      <div
+        class="flex flex-row"
+      >
+        <input
+          class="
+               pr-6
+               w-[12rem]
+               md:w-[20rem]
+               pl-2
+               py-1
+               md:pl-6
+               truncate
+               focus:shadow-md dark:shadow-gray-700
+               border
+               border-red-200
+               rounded-lg hover:border-red-400 focus:outline-none
+               placeholder:text-red-200
+               text-red-400
+               dark:bg-slate-600
+               dark:placeholder:text-gray-200
+               dark:text-gray-200
+               dark:border-red-400
+             "
+          data-test-id="search"
+          placeholder="Start typing a Pokémon name..."
+          type="search"
+          value="chari"
+        />
+        <span
+          class="text-orange-500 font-mono dark:text-gray-200 ml-[-1.25rem] self-center"
+          data-test-id="clearSearchPokemonName"
+          style="cursor: pointer;"
+        >
+          x
+        </span>
+      </div>
+    </div>
+    <div
+      class="basis-1/4 flex flex-row place-content-end pr-2"
+    >
+      <label
+        class="
+        self-center mr-1
+        text-sm font-mono text-slate-800 dark:text-gray-200
+        before:md:content-['Pokémon\\00a0gen.'] before:content-['Gen.']
+        "
+        for="pokemon-gen"
+      />
+      <select
+        class="
+        text-end
+        px-2
+      bg-white
+      border border-red-200 text-red-400 text-sm rounded-lg focus:outline-none
+      hover:border-red-400
+      dark:bg-slate-600 dark:border-red-400
+      dark:text-gray-200
+      "
+        id="pokemon-gen"
+      >
+        <option
+          value="1st"
+        >
+          1st
+        </option>
+        <option
+          value="2nd"
+        >
+          2nd
+        </option>
+        <option
+          value="3rd"
+        >
+          3rd
+        </option>
+        <option
+          value="4th"
+        >
+          4th
+        </option>
+        <option
+          value="5th"
+        >
+          5th
+        </option>
+        <option
+          value="6th"
+        >
+          6th
+        </option>
+        <option
+          value="7th"
+        >
+          7th
+        </option>
+        <option
+          value="8th"
+        >
+          8th
+        </option>
+        <option
+          value="9th"
+        >
+          9th
+        </option>
+      </select>
+    </div>
+  </div>
+  <div
+    class="mb-4 flex md:flex-row flex-col-reverse md:max-h-[40rem]"
+  >
+    <div
+      class="basis-2/3 mx-2 p-4 border rounded-md border-orange-400 shadow dark:shadow-gray-700 overflow-y-scroll"
+    >
+      <div>
+        Pokemon List
+        <span>
+          Pokemon search name: 
+          chari
+        </span>
+        <span>
+          Pokemon generation: 
+          1st
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should render 3`] = `
+<div>
+  <div
+    class="pl-2 mb-4 flex flex-row"
+  >
+    <div
+      class="basis-3/4"
+    >
+      <div
+        class="flex flex-row"
+      >
+        <input
+          class="
+               pr-6
+               w-[12rem]
+               md:w-[20rem]
+               pl-2
+               py-1
+               md:pl-6
+               truncate
+               focus:shadow-md dark:shadow-gray-700
+               border
+               border-red-200
+               rounded-lg hover:border-red-400 focus:outline-none
+               placeholder:text-red-200
+               text-red-400
+               dark:bg-slate-600
+               dark:placeholder:text-gray-200
+               dark:text-gray-200
+               dark:border-red-400
+             "
+          data-test-id="search"
+          placeholder="Start typing a Pokémon name..."
+          type="search"
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      class="basis-1/4 flex flex-row place-content-end pr-2"
+    >
+      <label
+        class="
+        self-center mr-1
+        text-sm font-mono text-slate-800 dark:text-gray-200
+        before:md:content-['Pokémon\\00a0gen.'] before:content-['Gen.']
+        "
+        for="pokemon-gen"
+      />
+      <select
+        class="
+        text-end
+        px-2
+      bg-white
+      border border-red-200 text-red-400 text-sm rounded-lg focus:outline-none
+      hover:border-red-400
+      dark:bg-slate-600 dark:border-red-400
+      dark:text-gray-200
+      "
+        id="pokemon-gen"
+      >
+        <option
+          value="1st"
+        >
+          1st
+        </option>
+        <option
+          value="2nd"
+        >
+          2nd
+        </option>
+        <option
+          value="3rd"
+        >
+          3rd
+        </option>
+        <option
+          value="4th"
+        >
+          4th
+        </option>
+        <option
+          value="5th"
+        >
+          5th
+        </option>
+        <option
+          value="6th"
+        >
+          6th
+        </option>
+        <option
+          value="7th"
+        >
+          7th
+        </option>
+        <option
+          value="8th"
+        >
+          8th
+        </option>
+        <option
+          value="9th"
+        >
+          9th
+        </option>
+      </select>
+    </div>
+  </div>
+  <div
+    class="mb-4 flex md:flex-row flex-col-reverse md:max-h-[40rem]"
+  >
+    <div
+      class="basis-2/3 mx-2 p-4 border rounded-md border-orange-400 shadow dark:shadow-gray-700 overflow-y-scroll"
+    >
+      <div>
+        Pokemon List
+        <span>
+          Pokemon search name: 
+        </span>
+        <span>
+          Pokemon generation: 
+          1st
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should render 4`] = `
+<div>
+  <div
+    class="pl-2 mb-4 flex flex-row"
+  >
+    <div
+      class="basis-3/4"
+    >
+      <div
+        class="flex flex-row"
+      >
+        <input
+          class="
+               pr-6
+               w-[12rem]
+               md:w-[20rem]
+               pl-2
+               py-1
+               md:pl-6
+               truncate
+               focus:shadow-md dark:shadow-gray-700
+               border
+               border-red-200
+               rounded-lg hover:border-red-400 focus:outline-none
+               placeholder:text-red-200
+               text-red-400
+               dark:bg-slate-600
+               dark:placeholder:text-gray-200
+               dark:text-gray-200
+               dark:border-red-400
+             "
+          data-test-id="search"
+          placeholder="Start typing a Pokémon name..."
+          type="search"
+          value="chari"
+        />
+        <span
+          class="text-orange-500 font-mono dark:text-gray-200 ml-[-1.25rem] self-center"
+          data-test-id="clearSearchPokemonName"
+          style="cursor: pointer;"
+        >
+          x
+        </span>
+      </div>
+    </div>
+    <div
+      class="basis-1/4 flex flex-row place-content-end pr-2"
+    >
+      <label
+        class="
+        self-center mr-1
+        text-sm font-mono text-slate-800 dark:text-gray-200
+        before:md:content-['Pokémon\\00a0gen.'] before:content-['Gen.']
+        "
+        for="pokemon-gen"
+      />
+      <select
+        class="
+        text-end
+        px-2
+      bg-white
+      border border-red-200 text-red-400 text-sm rounded-lg focus:outline-none
+      hover:border-red-400
+      dark:bg-slate-600 dark:border-red-400
+      dark:text-gray-200
+      "
+        id="pokemon-gen"
+      >
+        <option
+          value="1st"
+        >
+          1st
+        </option>
+        <option
+          value="2nd"
+        >
+          2nd
+        </option>
+        <option
+          value="3rd"
+        >
+          3rd
+        </option>
+        <option
+          value="4th"
+        >
+          4th
+        </option>
+        <option
+          value="5th"
+        >
+          5th
+        </option>
+        <option
+          value="6th"
+        >
+          6th
+        </option>
+        <option
+          value="7th"
+        >
+          7th
+        </option>
+        <option
+          value="8th"
+        >
+          8th
+        </option>
+        <option
+          value="9th"
+        >
+          9th
+        </option>
+      </select>
+    </div>
+  </div>
+  <div
+    class="mb-4 flex md:flex-row flex-col-reverse md:max-h-[40rem]"
+  >
+    <div
+      class="basis-2/3 mx-2 p-4 border rounded-md border-orange-400 shadow dark:shadow-gray-700 overflow-y-scroll"
+    >
+      <div>
+        Pokemon List
+        <span>
+          Pokemon search name: 
+          chari
+        </span>
+        <span>
+          Pokemon generation: 
+          1st
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should render 5`] = `
+<div>
+  <div
+    class="pl-2 mb-4 flex flex-row"
+  >
+    <div
+      class="basis-3/4"
+    >
+      <div
+        class="flex flex-row"
+      >
+        <input
+          class="
+               pr-6
+               w-[12rem]
+               md:w-[20rem]
+               pl-2
+               py-1
+               md:pl-6
+               truncate
+               focus:shadow-md dark:shadow-gray-700
+               border
+               border-red-200
+               rounded-lg hover:border-red-400 focus:outline-none
+               placeholder:text-red-200
+               text-red-400
+               dark:bg-slate-600
+               dark:placeholder:text-gray-200
+               dark:text-gray-200
+               dark:border-red-400
+             "
+          data-test-id="search"
+          placeholder="Start typing a Pokémon name..."
+          type="search"
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      class="basis-1/4 flex flex-row place-content-end pr-2"
+    >
+      <label
+        class="
+        self-center mr-1
+        text-sm font-mono text-slate-800 dark:text-gray-200
+        before:md:content-['Pokémon\\00a0gen.'] before:content-['Gen.']
+        "
+        for="pokemon-gen"
+      />
+      <select
+        class="
+        text-end
+        px-2
+      bg-white
+      border border-red-200 text-red-400 text-sm rounded-lg focus:outline-none
+      hover:border-red-400
+      dark:bg-slate-600 dark:border-red-400
+      dark:text-gray-200
+      "
+        id="pokemon-gen"
+      >
+        <option
+          value="1st"
+        >
+          1st
+        </option>
+        <option
+          value="2nd"
+        >
+          2nd
+        </option>
+        <option
+          value="3rd"
+        >
+          3rd
+        </option>
+        <option
+          value="4th"
+        >
+          4th
+        </option>
+        <option
+          value="5th"
+        >
+          5th
+        </option>
+        <option
+          value="6th"
+        >
+          6th
+        </option>
+        <option
+          value="7th"
+        >
+          7th
+        </option>
+        <option
+          value="8th"
+        >
+          8th
+        </option>
+        <option
+          value="9th"
+        >
+          9th
+        </option>
+      </select>
+    </div>
+  </div>
+  <div
+    class="mb-4 flex md:flex-row flex-col-reverse md:max-h-[40rem]"
+  >
+    <div
+      class="basis-2/3 mx-2 p-4 border rounded-md border-orange-400 shadow dark:shadow-gray-700 overflow-y-scroll"
+    >
+      <div>
+        Pokemon List
+        <span>
+          Pokemon search name: 
+        </span>
+        <span>
+          Pokemon generation: 
+          2nd
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should render 6`] = `
+<div>
+  <div
+    class="pl-2 mb-4 flex flex-row"
+  >
+    <div
+      class="basis-3/4"
+    >
+      <div
+        class="flex flex-row"
+      >
+        <input
+          class="
+               pr-6
+               w-[12rem]
+               md:w-[20rem]
+               pl-2
+               py-1
+               md:pl-6
+               truncate
+               focus:shadow-md dark:shadow-gray-700
+               border
+               border-red-200
+               rounded-lg hover:border-red-400 focus:outline-none
+               placeholder:text-red-200
+               text-red-400
+               dark:bg-slate-600
+               dark:placeholder:text-gray-200
+               dark:text-gray-200
+               dark:border-red-400
+             "
+          data-test-id="search"
+          placeholder="Start typing a Pokémon name..."
+          type="search"
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      class="basis-1/4 flex flex-row place-content-end pr-2"
+    >
+      <label
+        class="
+        self-center mr-1
+        text-sm font-mono text-slate-800 dark:text-gray-200
+        before:md:content-['Pokémon\\00a0gen.'] before:content-['Gen.']
+        "
+        for="pokemon-gen"
+      />
+      <select
+        class="
+        text-end
+        px-2
+      bg-white
+      border border-red-200 text-red-400 text-sm rounded-lg focus:outline-none
+      hover:border-red-400
+      dark:bg-slate-600 dark:border-red-400
+      dark:text-gray-200
+      "
+        id="pokemon-gen"
+      >
+        <option
+          value="1st"
+        >
+          1st
+        </option>
+        <option
+          value="2nd"
+        >
+          2nd
+        </option>
+        <option
+          value="3rd"
+        >
+          3rd
+        </option>
+        <option
+          value="4th"
+        >
+          4th
+        </option>
+        <option
+          value="5th"
+        >
+          5th
+        </option>
+        <option
+          value="6th"
+        >
+          6th
+        </option>
+        <option
+          value="7th"
+        >
+          7th
+        </option>
+        <option
+          value="8th"
+        >
+          8th
+        </option>
+        <option
+          value="9th"
+        >
+          9th
+        </option>
+      </select>
+    </div>
+  </div>
+  <div
+    class="mb-4 flex md:flex-row flex-col-reverse md:max-h-[40rem]"
+  >
+    <div
+      class="basis-2/3 mx-2 p-4 border rounded-md border-orange-400 shadow dark:shadow-gray-700 overflow-y-scroll"
+    >
+      <div>
+        Pokemon List
+        <span>
+          Pokemon search name: 
+        </span>
+        <span>
+          Pokemon generation: 
+          2nd
+        </span>
+      </div>
+    </div>
+    <div
+      class="basis-1/3 mb-4 md:mb-0 mx-2"
+    >
+      <div>
+        Pokemon Detail Pokemon Info: #
+        1
+         
+        charizard
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should render 7`] = `
+<div>
+  <div>
+    Pokemon Modal Name: 
+    charizard
+  </div>
+  <div
+    class="pl-2 mb-4 flex flex-row"
+  >
+    <div
+      class="basis-3/4"
+    >
+      <div
+        class="flex flex-row"
+      >
+        <input
+          class="
+               pr-6
+               w-[12rem]
+               md:w-[20rem]
+               pl-2
+               py-1
+               md:pl-6
+               truncate
+               focus:shadow-md dark:shadow-gray-700
+               border
+               border-red-200
+               rounded-lg hover:border-red-400 focus:outline-none
+               placeholder:text-red-200
+               text-red-400
+               dark:bg-slate-600
+               dark:placeholder:text-gray-200
+               dark:text-gray-200
+               dark:border-red-400
+             "
+          data-test-id="search"
+          placeholder="Start typing a Pokémon name..."
+          type="search"
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      class="basis-1/4 flex flex-row place-content-end pr-2"
+    >
+      <label
+        class="
+        self-center mr-1
+        text-sm font-mono text-slate-800 dark:text-gray-200
+        before:md:content-['Pokémon\\00a0gen.'] before:content-['Gen.']
+        "
+        for="pokemon-gen"
+      />
+      <select
+        class="
+        text-end
+        px-2
+      bg-white
+      border border-red-200 text-red-400 text-sm rounded-lg focus:outline-none
+      hover:border-red-400
+      dark:bg-slate-600 dark:border-red-400
+      dark:text-gray-200
+      "
+        id="pokemon-gen"
+      >
+        <option
+          value="1st"
+        >
+          1st
+        </option>
+        <option
+          value="2nd"
+        >
+          2nd
+        </option>
+        <option
+          value="3rd"
+        >
+          3rd
+        </option>
+        <option
+          value="4th"
+        >
+          4th
+        </option>
+        <option
+          value="5th"
+        >
+          5th
+        </option>
+        <option
+          value="6th"
+        >
+          6th
+        </option>
+        <option
+          value="7th"
+        >
+          7th
+        </option>
+        <option
+          value="8th"
+        >
+          8th
+        </option>
+        <option
+          value="9th"
+        >
+          9th
+        </option>
+      </select>
+    </div>
+  </div>
+  <div
+    class="mb-4 flex md:flex-row flex-col-reverse md:max-h-[40rem]"
+  >
+    <div
+      class="basis-2/3 mx-2 p-4 border rounded-md border-orange-400 shadow dark:shadow-gray-700 overflow-y-scroll"
+    >
+      <div>
+        Pokemon List
+        <span>
+          Pokemon search name: 
+        </span>
+        <span>
+          Pokemon generation: 
+          2nd
+        </span>
+      </div>
+    </div>
+    <div
+      class="basis-1/3 mb-4 md:mb-0 mx-2"
+    >
+      <div>
+        Pokemon Detail Pokemon Info: #
+        1
+         
+        charizard
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should render 8`] = `
+<div>
+  <div
+    class="pl-2 mb-4 flex flex-row"
+  >
+    <div
+      class="basis-3/4"
+    >
+      <div
+        class="flex flex-row"
+      >
+        <input
+          class="
+               pr-6
+               w-[12rem]
+               md:w-[20rem]
+               pl-2
+               py-1
+               md:pl-6
+               truncate
+               focus:shadow-md dark:shadow-gray-700
+               border
+               border-red-200
+               rounded-lg hover:border-red-400 focus:outline-none
+               placeholder:text-red-200
+               text-red-400
+               dark:bg-slate-600
+               dark:placeholder:text-gray-200
+               dark:text-gray-200
+               dark:border-red-400
+             "
+          data-test-id="search"
+          placeholder="Start typing a Pokémon name..."
+          type="search"
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      class="basis-1/4 flex flex-row place-content-end pr-2"
+    >
+      <label
+        class="
+        self-center mr-1
+        text-sm font-mono text-slate-800 dark:text-gray-200
+        before:md:content-['Pokémon\\00a0gen.'] before:content-['Gen.']
+        "
+        for="pokemon-gen"
+      />
+      <select
+        class="
+        text-end
+        px-2
+      bg-white
+      border border-red-200 text-red-400 text-sm rounded-lg focus:outline-none
+      hover:border-red-400
+      dark:bg-slate-600 dark:border-red-400
+      dark:text-gray-200
+      "
+        id="pokemon-gen"
+      >
+        <option
+          value="1st"
+        >
+          1st
+        </option>
+        <option
+          value="2nd"
+        >
+          2nd
+        </option>
+        <option
+          value="3rd"
+        >
+          3rd
+        </option>
+        <option
+          value="4th"
+        >
+          4th
+        </option>
+        <option
+          value="5th"
+        >
+          5th
+        </option>
+        <option
+          value="6th"
+        >
+          6th
+        </option>
+        <option
+          value="7th"
+        >
+          7th
+        </option>
+        <option
+          value="8th"
+        >
+          8th
+        </option>
+        <option
+          value="9th"
+        >
+          9th
+        </option>
+      </select>
+    </div>
+  </div>
+  <div
+    class="mb-4 flex md:flex-row flex-col-reverse md:max-h-[40rem]"
+  >
+    <div
+      class="basis-2/3 mx-2 p-4 border rounded-md border-orange-400 shadow dark:shadow-gray-700 overflow-y-scroll"
+    >
+      <div>
+        Pokemon List
+        <span>
+          Pokemon search name: 
+        </span>
+        <span>
+          Pokemon generation: 
+          2nd
+        </span>
+      </div>
+    </div>
+    <div
+      class="basis-1/3 mb-4 md:mb-0 mx-2"
+    >
+      <div>
+        Pokemon Detail Pokemon Info: #
+        1
+         
+        charizard
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should render 9`] = `
+<div>
+  <div
+    class="pl-2 mb-4 flex flex-row"
+  >
+    <div
+      class="basis-3/4"
+    >
+      <div
+        class="flex flex-row"
+      >
+        <input
+          class="
+               pr-6
+               w-[12rem]
+               md:w-[20rem]
+               pl-2
+               py-1
+               md:pl-6
+               truncate
+               focus:shadow-md dark:shadow-gray-700
+               border
+               border-red-200
+               rounded-lg hover:border-red-400 focus:outline-none
+               placeholder:text-red-200
+               text-red-400
+               dark:bg-slate-600
+               dark:placeholder:text-gray-200
+               dark:text-gray-200
+               dark:border-red-400
+             "
+          data-test-id="search"
+          placeholder="Start typing a Pokémon name..."
+          type="search"
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      class="basis-1/4 flex flex-row place-content-end pr-2"
+    >
+      <label
+        class="
+        self-center mr-1
+        text-sm font-mono text-slate-800 dark:text-gray-200
+        before:md:content-['Pokémon\\00a0gen.'] before:content-['Gen.']
+        "
+        for="pokemon-gen"
+      />
+      <select
+        class="
+        text-end
+        px-2
+      bg-white
+      border border-red-200 text-red-400 text-sm rounded-lg focus:outline-none
+      hover:border-red-400
+      dark:bg-slate-600 dark:border-red-400
+      dark:text-gray-200
+      "
+        id="pokemon-gen"
+      >
+        <option
+          value="1st"
+        >
+          1st
+        </option>
+        <option
+          value="2nd"
+        >
+          2nd
+        </option>
+        <option
+          value="3rd"
+        >
+          3rd
+        </option>
+        <option
+          value="4th"
+        >
+          4th
+        </option>
+        <option
+          value="5th"
+        >
+          5th
+        </option>
+        <option
+          value="6th"
+        >
+          6th
+        </option>
+        <option
+          value="7th"
+        >
+          7th
+        </option>
+        <option
+          value="8th"
+        >
+          8th
+        </option>
+        <option
+          value="9th"
+        >
+          9th
+        </option>
+      </select>
+    </div>
+  </div>
+  <div
+    class="mb-4 flex md:flex-row flex-col-reverse md:max-h-[40rem]"
+  >
+    <div
+      class="basis-2/3 mx-2 p-4 border rounded-md border-orange-400 shadow dark:shadow-gray-700 overflow-y-scroll"
+    >
+      <div>
+        Pokemon List
+        <span>
+          Pokemon search name: 
+        </span>
+        <span>
+          Pokemon generation: 
+          2nd
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;

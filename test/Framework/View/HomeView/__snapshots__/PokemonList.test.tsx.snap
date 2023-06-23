@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render 1`] = `
+<div>
+  <ul
+    class="
+        columns-2
+        md:columns-3
+        lg:columns-4
+        xl:columns-5
+        font-mono
+        text-xs
+        md:text-sm
+        "
+    data-test-id="list"
+  >
+    <li
+      class="
+            text-slate-800
+            dark:text-gray-200
+            hover:shadow dark:shadow-gray-700
+            hover:bg-orange-100 dark:hover:bg-orange-700
+            hover:rounded-lg
+            "
+      style="cursor: pointer;"
+    >
+      <span
+        class="text-orange-600 dark:text-red-400"
+      >
+          
+        1
+        .
+      </span>
+       
+      Bulbasaur
+    </li>
+  </ul>
+</div>
+`

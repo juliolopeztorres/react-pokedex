@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render 1`] = `
+<div>
+  <div
+    class=""
+  >
+    <div
+      class="antialiased transition-colors duration-500 ease-in-out flex flex-col min-h-screen dark:bg-slate-800 dark:text-gray-200"
+    >
+      <div>
+        <span>
+          Children to be drawn. Dark mode is 
+          false
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`
+
+exports[`should render 2`] = `
+<div>
+  <div
+    class="dark"
+  >
+    <div
+      class="antialiased transition-colors duration-500 ease-in-out flex flex-col min-h-screen dark:bg-slate-800 dark:text-gray-200"
+    >
+      <div>
+        <span>
+          Children to be drawn. Dark mode is 
+          true
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`
+
+exports[`should render using localStorage saved value 1`] = `
+<div>
+  <div
+    class="dark"
+  >
+    <div
+      class="antialiased transition-colors duration-500 ease-in-out flex flex-col min-h-screen dark:bg-slate-800 dark:text-gray-200"
+    >
+      <div>
+        <span>
+          Children to be drawn. Dark mode is 
+          true
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`
+
+exports[`should render using localStorage saved value 2`] = `
+<div>
+  <div
+    class=""
+  >
+    <div
+      class="antialiased transition-colors duration-500 ease-in-out flex flex-col min-h-screen dark:bg-slate-800 dark:text-gray-200"
+    >
+      <div>
+        <span>
+          Children to be drawn. Dark mode is 
+          false
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`

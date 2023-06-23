@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render 1`] = `
+<div>
+  <div
+    class="bottom-0 bg-gray-800 p-4 text-gray-200 text-sm font-mono dark:bg-gray-950"
+  >
+    <span>
+      Julio + React + Tailwind
+    </span>
+  </div>
+</div>
+`

@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render home 1`] = `
+<div>
+  <div>
+    Home view
+  </div>
+</div>
+`;
+
+exports[`should render not found 1`] = `
+<div>
+  <div>
+    Not found
+  </div>
+</div>
+`;
