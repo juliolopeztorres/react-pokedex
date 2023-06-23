@@ -1,29 +1,17 @@
 import React from 'react';
 import { hot } from "react-hot-loader/root";
 import { Route, Switch } from 'react-router-dom';
-import HomeView from '../View/HomeView';
-import NotFoundView from "../View/NotFoundView";
-
-type routes = 'home';
+import Home from '../View/HomeView';
+import NotFound from "../View/NotFound";
+import getRoute from "../../Domain/Util/getRoute";
 
 const RouteService = () => {
   return <Switch>
     <Route exact path={getRoute('home')}>
-      <HomeView/>
+      <Home/>
     </Route>
-    <NotFoundView/>
+    <NotFound/>
   </Switch>;
 }
 
 export default hot(RouteService)
-
-export function getRoute(path: routes): string {
-  // generatePath('/'), // generatePath(path, parameters) -> Path string and parameters an object
-  const routes = {
-    home: {
-      route: "/",
-    },
-  };
-
-  return routes[path].route;
-}

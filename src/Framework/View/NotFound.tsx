@@ -1,9 +1,9 @@
 import React from 'react'
 import { hot } from "react-hot-loader/root";
 import { Link } from "react-router-dom";
-import { getRoute } from "../Service/RouteService";
+import getRoute from "../../Domain/Util/getRoute";
 
-const NotFoundView = () => <div className='p-4'>
+const NotFound = () => <div className='p-4'>
   <span className='text-xl'><span className="text-orange-600">404 -</span> Route not found</span>
   <div className='text-gray-600 dark:text-gray-200 text-sm mt-2'>
     Don't know where to go?
@@ -18,4 +18,4 @@ const NotFoundView = () => <div className='p-4'>
   </div>
 </div>
 
-export default hot(NotFoundView)
+export default hot(NotFound)
