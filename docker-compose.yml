@@ -11,16 +11,17 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - "3000:3000"
+      - "9229:9229"
     command: yarn serve:hot
     volumes:
       - ./:/srv/app
 
-  cypress:
-    network_mode: bridge
-    depends_on:
-      - react
-    image: "cypress/included:12.5.1"
-    working_dir: /srv/app/test/Framework/Integration
-    command: "--config baseUrl=http://172.17.0.1:3000/ --spec cypress/e2e/TasksViewIntegration.cy.ts"
-    volumes:
-      - ./:/srv/app
+#  cypress:
+#    network_mode: bridge
+#    depends_on:
+#      - react
+#    image: "cypress/included:12.5.1"
+#    working_dir: /srv/app/test/Framework/Integration
+#    command: "--config baseUrl=http://172.17.0.1:3000/ --spec cypress/e2e/TasksViewIntegration.cy.ts"
+#    volumes:
+#      - ./:/srv/app
