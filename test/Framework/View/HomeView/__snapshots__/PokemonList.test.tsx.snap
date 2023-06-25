@@ -1,5 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`should log if use case fails 1`] = `
+<div>
+  <ul
+    class="
+        columns-2
+        md:columns-3
+        lg:columns-4
+        xl:columns-5
+        font-mono
+        text-xs
+        md:text-sm
+        "
+    data-test-id="list"
+  />
+</div>
+`;
+
 exports[`should render 1`] = `
 <div>
   <ul
@@ -36,4 +53,4 @@ exports[`should render 1`] = `
     </li>
   </ul>
 </div>
-`
+`;

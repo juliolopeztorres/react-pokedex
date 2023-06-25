@@ -6,6 +6,16 @@ import GetPokemonsUseCase from "../../../../src/Domain/UseCase/GetPokemonsUseCas
 import GetPokemonsRepositoryInterface from "../../../../src/Domain/UseCase/GetPokemonsRepositoryInterface";
 import Pokemon from "../../../../src/Domain/Model/Pokemon";
 import PokemonDetail from "../../../../src/Domain/Model/PokemonDetail";
+import Exception from "../../../../src/Domain/Model/Exception";
+
+const logFunctionMock = jest.fn()
+jest.mock('../../../../src/Domain/Util/logWithLevel', () => {
+  return {
+    __esModule: true,
+    Level: jest.requireActual('../../../../src/Domain/Util/logWithLevel').Level,
+    default: logFunctionMock,
+  }
+})
 
 import LoadingContextService from "../../../../src/Framework/Service/LoadingContextService";
 import ServiceContainerContextService from "../../../../src/Framework/Service/ServiceContainerContextService";
@@ -84,3 +94,60 @@ it('should render', async () => {
 
   expect(container).toMatchSnapshot()
 });
+
+it('should log if use case fails', async () => {
+  const setLoading = jest.fn()
+  const onPokemonClicked = jest.fn()
+
+  const expectedException = Exception.create('Error coming from Repository')
+
+  await act(async () => {
+    root.render(
+      <ServiceContainerContextService.Provider value={new class implements ServiceContainerInterface {
+        getService(name : ServiceType) : any {
+          if (name === 'GetPokemonsUseCase') {
+            return new GetPokemonsUseCase(new class implements GetPokemonsRepositoryInterface {
+              getByGeneration(generation : string) : Promise<Pokemon[]> {
+                return Promise.reject(expectedException);
+              }
+
+              getById(id : number) : Promise<PokemonDetail> {
+                throw new Error('Not implemented')
+              }
+            })
+          }
+
+          throw new Error('Unexpected service requested')
+        }
+      }}>
+        <LoadingContextService.Provider value={[false, setLoading]}>
+          <PokemonList
+            searchPokemonName={'bulba'}
+            onPokemonClicked={onPokemonClicked}
+            generation={'1st'}
+          />
+        </LoadingContextService.Provider>
+      </ServiceContainerContextService.Provider>
+    )
+  })
+
+  expect(setLoading).toHaveBeenCalledTimes(2)
+  expect(setLoading).toHaveBeenNthCalledWith(1, true)
+  expect(setLoading).toHaveBeenNthCalledWith(2, false)
+
+  expect(logFunctionMock).toHaveBeenCalledTimes(1)
+  expect(logFunctionMock).toHaveBeenLastCalledWith(
+    '🔴',
+    'error getting pokemons from repository',
+    { indentation: 2, context: Exception.create(
+      'Could not recover pokemons for generation 1st',
+        expectedException
+      )}
+  )
+
+  expect(container).toMatchSnapshot()
+});
+
+it.skip('should render correctly spaces ahead pokemon numbers', function () {
+  // TODO
+})

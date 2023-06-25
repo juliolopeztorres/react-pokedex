@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`should log if use case fails 1`] = `<div />`;
+
 exports[`should render 1`] = `
 <div>
   <div
@@ -103,6 +105,6 @@ exports[`should render 1`] = `
     </div>
   </div>
 </div>
-`
+`;
 
-exports[`should render 2`] = `<div />`
+exports[`should render 2`] = `<div />`;

@@ -11,9 +11,19 @@ import GetPokemonsUseCase from "../../../../src/Domain/UseCase/GetPokemonsUseCas
 import GetPokemonsRepositoryInterface from "../../../../src/Domain/UseCase/GetPokemonsRepositoryInterface";
 import ServiceContainerContextService from "../../../../src/Framework/Service/ServiceContainerContextService";
 import LoadingContextService from "../../../../src/Framework/Service/LoadingContextService";
-import PokemonDetail, { PokemonDetailCallback } from "../../../../src/Framework/View/HomeView/PokemonDetail";
 import BaseStat from "../../../../src/Domain/Model/BaseStat";
+import Exception from "../../../../src/Domain/Model/Exception";
 
+const logFunctionMock = jest.fn()
+jest.mock('../../../../src/Domain/Util/logWithLevel', () => {
+  return {
+    __esModule: true,
+    Level: jest.requireActual('../../../../src/Domain/Util/logWithLevel').Level,
+    default: logFunctionMock,
+  }
+})
+
+import PokemonDetail, { PokemonDetailCallback } from "../../../../src/Framework/View/HomeView/PokemonDetail";
 
 let root: Root
 let container: HTMLElement
@@ -104,6 +114,62 @@ it('should render', async () => {
   })
 
   expect(onCloseClicked).toHaveBeenCalledTimes(1)
+
+  expect(container).toMatchSnapshot()
+});
+
+it('should log if use case fails', async () => {
+  const setIsLoading = jest.fn()
+
+  const onPokemonArtClicked = jest.fn()
+  const onCloseClicked = jest.fn()
+
+  const callback: PokemonDetailCallback = {
+    onPokemonArtClicked,
+    onCloseClicked
+  }
+
+  const expectedException = Exception.create('Error coming from Repository')
+
+  await act(async () => {
+    root.render(
+      <ServiceContainerContextService.Provider value={new class implements ServiceContainerInterface {
+        getService(name : ServiceType) : any {
+          if (name === 'GetPokemonsUseCase') {
+            return new GetPokemonsUseCase(new class implements GetPokemonsRepositoryInterface {
+              getByGeneration(generation : string) : Promise<Pokemon[]> {
+                throw new Error('Not implemented')
+              }
+
+              getById(id : number) : Promise<PokemonModelDetail> {
+                return Promise.reject(expectedException);
+              }
+            })
+          }
+
+          throw new Error('Unexpected service requested')
+        }
+      }}>
+        <LoadingContextService.Provider value={[false, setIsLoading]}>
+          <PokemonDetail pokemon={new Pokemon(1, 'bulbasaur')} callback={callback}/>
+        </LoadingContextService.Provider>
+      </ServiceContainerContextService.Provider>
+    )
+  })
+
+  expect(setIsLoading).toHaveBeenCalledTimes(2)
+  expect(setIsLoading).toHaveBeenNthCalledWith(1, true)
+  expect(setIsLoading).toHaveBeenNthCalledWith(2, false)
+
+  expect(logFunctionMock).toHaveBeenCalledTimes(1)
+  expect(logFunctionMock).toHaveBeenLastCalledWith(
+    '🔴',
+    'error getting pokemon from repository by id',
+    { indentation: 2, context: Exception.create(
+        'Could not recover pokemon detail for id 1',
+        expectedException
+      )}
+  )
 
   expect(container).toMatchSnapshot()
 });
