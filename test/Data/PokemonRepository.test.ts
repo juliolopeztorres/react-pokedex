@@ -115,6 +115,8 @@ it('should get by id', async () => {
     },
     new class implements PokemonClient {
       getPokemonById(id : number) : Promise<PokemonApiMin> {
+        expect(id).toBe(1)
+
         return Promise.resolve({
           id: 1,
           name: 'bulbasaur',

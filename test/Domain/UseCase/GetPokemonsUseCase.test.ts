@@ -5,6 +5,7 @@ import PokemonDetail from "../../../src/Domain/Model/PokemonDetail";
 import PokemonModelDetail from "../../../src/Domain/Model/PokemonDetail";
 import { Generation } from "../../../src/Domain/Model/GenerationInfo";
 import BaseStat from "../../../src/Domain/Model/BaseStat";
+import Exception from "../../../src/Domain/Model/Exception";
 
 it('should get all by generation', async () => {
   const bulbasaur = new Pokemon(1, 'bulbasaur')
@@ -21,7 +22,6 @@ it('should get all by generation', async () => {
     }
   })).getAll('1st')).toStrictEqual([bulbasaur])
 })
-
 
 it('should get detail by id', async () => {
   const pokemonDetail = new PokemonModelDetail(
@@ -44,4 +44,52 @@ it('should get detail by id', async () => {
       return Promise.resolve(pokemonDetail);
     }
   })).getById(1)).toBe(pokemonDetail)
+})
+
+it('should throw error when getAll repository fails', async () => {
+  const expectedError = {
+    error: 0,
+    message: 'Error from Pokemon Repository'
+  }
+
+  try {
+    await (new GetPokemonsUseCase(new class implements GetPokemonsRepositoryInterface {
+      getByGeneration(generation : Generation) : Promise<Pokemon[]> {
+        return Promise.reject(expectedError)
+      }
+
+      getById(id : number) : Promise<PokemonDetail> {
+        throw new Error('Not implemented')
+      }
+    })).getAll('1st')
+  } catch (error: any) {
+    expect(error).toBeInstanceOf(Exception)
+    expect(error.message).toEqual('Could not recover pokemons for generation 1st')
+    expect(error.context).toBeTruthy()
+    expect(error.context).toEqual(expectedError)
+  }
+})
+
+it('should throw error when getById repository fails', async () => {
+  const expectedError = {
+    error: 0,
+    message: 'Error from Pokemon Repository'
+  }
+
+  try {
+    await (new GetPokemonsUseCase(new class implements GetPokemonsRepositoryInterface {
+      getByGeneration(generation : Generation) : Promise<Pokemon[]> {
+        throw new Error('Not implemented')
+      }
+
+      getById(id : number) : Promise<PokemonDetail> {
+        return Promise.reject(expectedError)
+      }
+    })).getById(1)
+  } catch (error: any) {
+    expect(error).toBeInstanceOf(Exception)
+    expect(error.message).toEqual('Could not recover pokemon detail for id 1')
+    expect(error.context).toBeTruthy()
+    expect(error.context).toEqual(expectedError)
+  }
 })
