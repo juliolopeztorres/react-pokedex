@@ -3,6 +3,7 @@ import { NamedAPIResourceList } from "pokenode-ts";
 import Pokemon from "../../src/Domain/Model/Pokemon";
 import PokemonDetail from "../../src/Domain/Model/PokemonDetail";
 import BaseStat from "../../src/Domain/Model/BaseStat";
+import Exception from "../../src/Domain/Model/Exception";
 
 it('should get by generation without cache', async () => {
   expect(await (new PokemonRepository(
@@ -136,4 +137,106 @@ it('should get by id', async () => {
     ['back_default', 'back_shiny'],
     [new BaseStat('hola', 10)]
   ))
+})
+
+it('should reject when by generation with error', async () => {
+  const expectedError = {
+    error: 0,
+    message: 'Error from Pokemon Client'
+  }
+
+  try {
+    await (new PokemonRepository(
+      new class implements Storage {
+        [name : string] : any;
+
+        readonly length : number = 0;
+
+        clear() : void {}
+
+        getItem(key : string) : string | null {
+          return null
+        }
+
+        key(index : number) : string | null {
+          return null;
+        }
+
+        removeItem(key : string) : void {}
+
+        setItem(key : string, value : string) : void {}
+
+      },
+      new class implements PokemonClient {
+        getPokemonById(id : number) : Promise<PokemonApiMin> {
+          throw new Error('Not implemented')
+        }
+
+        listPokemons(offset : number, limit : number) : Promise<NamedAPIResourceList> {
+          return Promise.reject(expectedError)
+        }
+
+      }
+    ).getByGeneration('1st'))
+  } catch (error: any) {
+    expect(error).toBeInstanceOf(Exception)
+    expect(error.message).toEqual('Error API Pokemon List')
+    expect(error.context).toBeTruthy()
+    expect(error.context).toEqual(expectedError)
+
+    return
+  }
+
+  throw new Error('Expected Exception was not thrown')
+})
+
+it('should reject when by id with error', async () => {
+  const expectedError = {
+    error: 0,
+    message: 'Error from Pokemon Client'
+  }
+
+  try {
+    await (new PokemonRepository(
+      new class implements Storage {
+        [name : string] : any;
+
+        readonly length : number = 0;
+
+        clear() : void {}
+
+        getItem(key : string) : string | null {
+          return null
+        }
+
+        key(index : number) : string | null {
+          return null;
+        }
+
+        removeItem(key : string) : void {}
+
+        setItem(key : string, value : string) : void {}
+
+      },
+      new class implements PokemonClient {
+        getPokemonById(id : number) : Promise<PokemonApiMin> {
+          return Promise.reject(expectedError)
+        }
+
+        listPokemons(offset : number, limit : number) : Promise<NamedAPIResourceList> {
+          throw new Error('Not implemented')
+        }
+
+      }
+    ).getById(1))
+  } catch (error: any) {
+    expect(error).toBeInstanceOf(Exception)
+    expect(error.message).toEqual('Error API Pokemon Detail')
+    expect(error.context).toBeTruthy()
+    expect(error.context).toEqual(expectedError)
+
+    return
+  }
+
+  throw new Error('Expected Exception was not thrown')
 })
