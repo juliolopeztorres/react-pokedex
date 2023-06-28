@@ -6,9 +6,7 @@ class GenerationInfo {
   ) {}
 }
 
-type Generation = '1st' | '2nd' | '3rd' | '4th' | '5th' | '6th' | '7th' | '8th' | '9th'
-
-const generationsInfo: {[key in Generation]: GenerationInfo} = {
+const generationsInfo = {
   '1st': new GenerationInfo(0, 151),
   '2nd': new GenerationInfo(151, 100),
   '3rd': new GenerationInfo(251, 135),
@@ -18,7 +16,9 @@ const generationsInfo: {[key in Generation]: GenerationInfo} = {
   '7th': new GenerationInfo(721, 88),
   '8th': new GenerationInfo(809, 96),
   '9th': new GenerationInfo(905, 111),
-}
+} as const
+
+type Generation = keyof typeof generationsInfo
 
 const generationLabels: Generation[] = Object.keys(generationsInfo) as Generation[]
 
