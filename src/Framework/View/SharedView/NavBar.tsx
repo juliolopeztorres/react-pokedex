@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { hot } from "react-hot-loader/root";
 import { useHistory } from "react-router";
 import DarkModeContextService from "../../Service/DarkModeContextService";
+import Pokeball from "../../Asset/Image/pokeball.png"
 import getRoute from "../../../Domain/Util/getRoute";
 
 const NavBar = () => {
@@ -11,7 +12,7 @@ const NavBar = () => {
   return <div className='sticky top-0 flex flex-row bg-orange-600 shadow-md mb-4 pl-2 py-5 dark:bg-orange-800 dark:shadow-gray-700' style={{cursor: 'pointer'}}>
     <div className="grow flex flex-row">
       <div className="w-10 self-center">
-        <img data-test-id='logo' src="img/pokeball.png" className='w-7 mx-auto text-white font-mono dark:text-gray-200 text-xs' alt="pokeball"
+        <img data-test-id='logo' src={Pokeball} className='w-7 mx-auto text-white font-mono dark:text-gray-200 text-xs' alt="pokeball"
              onClick={() => {
                history.push(getRoute('home'));
              }}/>
