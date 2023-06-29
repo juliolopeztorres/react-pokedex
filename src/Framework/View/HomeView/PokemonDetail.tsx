@@ -37,9 +37,7 @@ const PokemonDetail: (props : { pokemon : Pokemon, callback: PokemonDetailCallba
 
     }, [pokemon])
 
-    return <React.Fragment>
-      {(!isLoading && pokemonDetail) &&
-        <div className='flex flex-col'>
+    return (!isLoading && pokemonDetail) && <div className='flex flex-col'>
           <div className="flex flex-row mb-4">
               <span className="
               w-full text-xl lg:text-2xl text-red-600 dark:text-red-400
@@ -90,8 +88,7 @@ const PokemonDetail: (props : { pokemon : Pokemon, callback: PokemonDetailCallba
               </li>)}
             </ul>
           </div>
-        </div>}
-    </React.Fragment>
+        </div>
 }
 
 export default hot(PokemonDetail)
