@@ -1,4 +1,3 @@
-import Service from "../Domain/Service";
 import Exception from "../Domain/Model/Exception";
 import GetPokemonsRepositoryInterface from "../Domain/UseCase/GetPokemonsRepositoryInterface";
 import Pokemon from "../Domain/Model/Pokemon";
@@ -20,7 +19,7 @@ export interface PokemonClient {
   getPokemonById(id: number): Promise<PokemonApiMin>
 }
 
-export default class PokemonRepository implements Service, GetPokemonsRepositoryInterface {
+export default class PokemonRepository implements GetPokemonsRepositoryInterface {
 
   constructor(
     private readonly storage: Storage,
@@ -51,9 +50,5 @@ export default class PokemonRepository implements Service, GetPokemonsRepository
       return this.client.getPokemonById(id)
         .then((pokemon) => MapPokemonDetail(pokemon))
         .catch((error) => Promise.reject(Exception.create('Error API Pokemon Detail', error)))
-  }
-
-  getName() : string {
-    return 'PokemonRepository';
   }
 }

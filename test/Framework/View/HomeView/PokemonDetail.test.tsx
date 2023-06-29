@@ -29,18 +29,18 @@ let root: Root
 let container: HTMLElement
 beforeEach(() => {
   // setup a DOM element as a render target
-  container = document.createElement("div");
-  document.body.appendChild(container);
+  container = document.createElement("div")
+  document.body.appendChild(container)
 
   root = createRoot(container)
-});
+})
 
 afterEach(() => {
   // cleanup on exiting
   act(() => root.unmount())
 
-  container.remove();
-});
+  container.remove()
+})
 
 it('should render', async () => {
   const pokemonDetail = new PokemonModelDetail(
@@ -70,13 +70,13 @@ it('should render', async () => {
 
           return new GetPokemonsUseCase(new class implements GetPokemonsRepositoryInterface {
             getByGeneration(generation : string) : Promise<Pokemon[]> {
-              return Promise.reject('Not implemented');
+              return Promise.reject('Not implemented')
             }
 
             getById(id : number) : Promise<PokemonModelDetail> {
               expect(id).toBe(1)
 
-              return Promise.resolve(pokemonDetail);
+              return Promise.resolve(pokemonDetail)
             }
 
           })
@@ -116,7 +116,7 @@ it('should render', async () => {
   expect(onCloseClicked).toHaveBeenCalledTimes(1)
 
   expect(container).toMatchSnapshot()
-});
+})
 
 it('should log if use case fails', async () => {
   const setIsLoading = jest.fn()
@@ -142,7 +142,7 @@ it('should log if use case fails', async () => {
               }
 
               getById(id : number) : Promise<PokemonModelDetail> {
-                return Promise.reject(expectedException);
+                return Promise.reject(expectedException)
               }
             })
           }
@@ -172,4 +172,4 @@ it('should log if use case fails', async () => {
   )
 
   expect(container).toMatchSnapshot()
-});
+})

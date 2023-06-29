@@ -1,9 +1,16 @@
-import React, { useState } from 'react'
+import React, { useContext, useMemo, useState } from 'react'
 import { hot } from "react-hot-loader/root";
+import ServiceContainerContextService from "../../Service/ServiceContainerContextService";
 import DarkModeContextService from "../../Service/DarkModeContextService";
 
 const DarkModeContainer: (props: {children: React.ReactNode}) => React.ReactElement = ({children}) => {
-  // TODO: Inject 'localStorage' through DI Container
+  const serviceContainer = useContext(ServiceContainerContextService)
+
+  const localStorage = useMemo<Storage>(
+    () => serviceContainer.getService('LocalStorage'),
+    []
+  )
+
   const [darkMode, setDarkMode] = useState<boolean>('true' === localStorage.getItem('darkMode'))
 
   const onDarkModeChanged = (status : boolean) => {

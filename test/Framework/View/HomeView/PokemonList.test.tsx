@@ -25,18 +25,18 @@ let root: Root
 let container: HTMLElement
 beforeEach(() => {
   // setup a DOM element as a render target
-  container = document.createElement("div");
-  document.body.appendChild(container);
+  container = document.createElement("div")
+  document.body.appendChild(container)
 
   root = createRoot(container)
-});
+})
 
 afterEach(() => {
   // cleanup on exiting
   act(() => root.unmount())
 
-  container.remove();
-});
+  container.remove()
+})
 
 it('should render', async () => {
   const setLoading = jest.fn()
@@ -49,7 +49,7 @@ it('should render', async () => {
           if (name === 'GetPokemonsUseCase') {
             return new GetPokemonsUseCase(new class implements GetPokemonsRepositoryInterface {
               getByGeneration(generation : string) : Promise<Pokemon[]> {
-                return Promise.resolve([{id: 1, name: 'bulbasaur'}, {id: 2, name: 'charizard'}]);
+                return Promise.resolve([{id: 1, name: 'bulbasaur'}, {id: 2, name: 'charizard'}])
               }
 
               getById(id : number) : Promise<PokemonDetail> {
@@ -93,7 +93,7 @@ it('should render', async () => {
   expect(onPokemonClicked).toHaveBeenLastCalledWith(new Pokemon(1, 'bulbasaur'))
 
   expect(container).toMatchSnapshot()
-});
+})
 
 it('should log if use case fails', async () => {
   const setLoading = jest.fn()
@@ -108,7 +108,7 @@ it('should log if use case fails', async () => {
           if (name === 'GetPokemonsUseCase') {
             return new GetPokemonsUseCase(new class implements GetPokemonsRepositoryInterface {
               getByGeneration(generation : string) : Promise<Pokemon[]> {
-                return Promise.reject(expectedException);
+                return Promise.reject(expectedException)
               }
 
               getById(id : number) : Promise<PokemonDetail> {
@@ -146,8 +146,54 @@ it('should log if use case fails', async () => {
   )
 
   expect(container).toMatchSnapshot()
-});
+})
 
-it.skip('should render correctly spaces ahead pokemon numbers', function () {
-  // TODO
+it('should render correctly spaces ahead pokemon numbers', async () => {
+  const setLoading = jest.fn()
+  const onPokemonClicked = jest.fn()
+
+  await act(async () => {
+    root.render(
+      <ServiceContainerContextService.Provider value={new class implements ServiceContainerInterface {
+        getService(name : ServiceType) : any {
+          if (name === 'GetPokemonsUseCase') {
+            return new GetPokemonsUseCase(new class implements GetPokemonsRepositoryInterface {
+              getByGeneration(generation : string) : Promise<Pokemon[]> {
+                return Promise.resolve([{id: 1, name: 'bulbasaur'}, {id: 20, name: 'charizard'}, {id: 300, name: 'squirtle'}])
+              }
+
+              getById(id : number) : Promise<PokemonDetail> {
+                throw new Error('Not implemented')
+              }
+            })
+          }
+
+          throw new Error('Unexpected service requested')
+        }
+      }}>
+        <LoadingContextService.Provider value={[false, setLoading]}>
+          <PokemonList
+            searchPokemonName={''}
+            onPokemonClicked={onPokemonClicked}
+            generation={'1st'}
+          />
+        </LoadingContextService.Provider>
+      </ServiceContainerContextService.Provider>
+    )
+  })
+
+  expect(setLoading).toHaveBeenCalledTimes(2)
+  expect(setLoading).toHaveBeenNthCalledWith(1, true)
+  expect(setLoading).toHaveBeenNthCalledWith(2, false)
+
+  const list = container.querySelector('ul[data-test-id="list"]')
+  expect(list).toBeTruthy()
+
+  expect(list!.childElementCount).toBe(3)
+
+  expect(list!.firstElementChild!.textContent).toEqual('  1. Bulbasaur')
+  expect(list!.children[1].textContent).toEqual(' 20. Charizard')
+  expect(list!.children[2].textContent).toEqual('300. Squirtle')
+
+  expect(container).toMatchSnapshot()
 })

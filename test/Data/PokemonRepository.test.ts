@@ -8,9 +8,9 @@ import Exception from "../../src/Domain/Model/Exception";
 it('should get by generation without cache', async () => {
   expect(await (new PokemonRepository(
     new class implements Storage {
-      [name : string] : any;
+      [name : string] : any
 
-      readonly length : number = 0;
+      readonly length : number = 0
 
       clear() : void {
       }
@@ -18,11 +18,11 @@ it('should get by generation without cache', async () => {
       getItem(key : string) : string | null {
         expect(key).toBe('pokemon-1st')
 
-        return null;
+        return null
       }
 
       key(index : number) : string | null {
-        return null;
+        return null
       }
 
       removeItem(key : string) : void {}
@@ -47,7 +47,7 @@ it('should get by generation without cache', async () => {
           next: null,
           previous: null,
           results: [{name: 'bulbasaur', url: 'http://my-url.domain/path/1'}]
-        });
+        })
       }
 
     }
@@ -57,20 +57,20 @@ it('should get by generation without cache', async () => {
 it('should get by generation with cache', async () => {
   expect(await (new PokemonRepository(
     new class implements Storage {
-      [name : string] : any;
+      [name : string] : any
 
-      readonly length : number = 1;
+      readonly length : number = 1
 
       clear() : void {}
 
       getItem(key : string) : string | null {
         expect(key).toBe('pokemon-1st')
 
-        return '[{"id": 1, "name": "bulbasaur"}]';
+        return '[{"id": 1, "name": "bulbasaur"}]'
       }
 
       key(index : number) : string | null {
-        return null;
+        return null
       }
 
       removeItem(key : string) : void {}
@@ -94,9 +94,9 @@ it('should get by generation with cache', async () => {
 it('should get by id', async () => {
   expect(await (new PokemonRepository(
     new class implements Storage {
-      [name : string] : any;
+      [name : string] : any
 
-      readonly length : number = 0;
+      readonly length : number = 0
 
       clear() : void {}
 
@@ -105,7 +105,7 @@ it('should get by id', async () => {
       }
 
       key(index : number) : string | null {
-        return null;
+        return null
       }
 
       removeItem(key : string) : void {}
@@ -150,9 +150,9 @@ it('should reject when by generation with error', async () => {
   try {
     await (new PokemonRepository(
       new class implements Storage {
-        [name : string] : any;
+        [name : string] : any
 
-        readonly length : number = 0;
+        readonly length : number = 0
 
         clear() : void {}
 
@@ -161,7 +161,7 @@ it('should reject when by generation with error', async () => {
         }
 
         key(index : number) : string | null {
-          return null;
+          return null
         }
 
         removeItem(key : string) : void {}
@@ -201,9 +201,9 @@ it('should reject when by id with error', async () => {
   try {
     await (new PokemonRepository(
       new class implements Storage {
-        [name : string] : any;
+        [name : string] : any
 
-        readonly length : number = 0;
+        readonly length : number = 0
 
         clear() : void {}
 
@@ -212,7 +212,7 @@ it('should reject when by id with error', async () => {
         }
 
         key(index : number) : string | null {
-          return null;
+          return null
         }
 
         removeItem(key : string) : void {}

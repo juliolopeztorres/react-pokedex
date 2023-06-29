@@ -7,18 +7,18 @@ let root: Root
 let container: HTMLElement
 beforeEach(() => {
   // setup a DOM element as a render target
-  container = document.createElement("div");
-  document.body.appendChild(container);
+  container = document.createElement("div")
+  document.body.appendChild(container)
 
   root = createRoot(container)
-});
+})
 
 afterEach(() => {
   // cleanup on exiting
   act(() => root.unmount())
 
-  container.remove();
-});
+  container.remove()
+})
 
 it('should render', () => {
   const onPokemonArtClicked = jest.fn()
@@ -38,4 +38,4 @@ it('should render', () => {
   })
 
   expect(onPokemonArtClicked).toHaveBeenCalledTimes(1)
-});
+})

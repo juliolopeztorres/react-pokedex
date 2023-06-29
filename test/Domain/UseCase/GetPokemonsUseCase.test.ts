@@ -41,7 +41,7 @@ it('should get detail by id', async () => {
     getById(id : number) : Promise<PokemonDetail> {
       expect(id).toBe(1)
 
-      return Promise.resolve(pokemonDetail);
+      return Promise.resolve(pokemonDetail)
     }
   })).getById(1)).toBe(pokemonDetail)
 })

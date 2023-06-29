@@ -8,6 +8,10 @@ const config: Config.InitialOptions = {
         "**/__tests__/**/*.+(ts|tsx|js)",
         "**/?(*.)+(spec|test).+(ts|tsx|js)"
     ],
+    coveragePathIgnorePatterns: [
+      '<rootDir>/src/Framework/Service/DarkModeContextService',
+      '<rootDir>/src/Framework/Service/LoadingContextService',
+    ],
     transform: {
         "^.+\\.(ts|tsx)$": "ts-jest",
         "^.+\\.jsx?$": "babel-jest",

@@ -6,6 +6,6 @@ test('Can load services', () => {
 
 test('Load non-existing services throws errors', () => {
     expect(() => new ServiceContainer().getService('RandomService')).toThrowError(
-        'Unexpected numbers of services found for name RandomService: 0'
+        'Could not find service by name RandomService. Possibilities are: LocalStorage, PokemonRepository, GetPokemonsUseCase'
     )
 })

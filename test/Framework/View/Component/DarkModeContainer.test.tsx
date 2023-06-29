@@ -9,20 +9,20 @@ let root: Root
 let container: HTMLElement
 beforeEach(() => {
   // setup a DOM element as a render target
-  container = document.createElement("div");
-  document.body.appendChild(container);
+  container = document.createElement("div")
+  document.body.appendChild(container)
 
   root = createRoot(container)
   jest.useFakeTimers()
-});
+})
 
 afterEach(() => {
   // cleanup on exiting
   act(() => root.unmount())
 
-  container.remove();
+  container.remove()
   jest.useRealTimers()
-});
+})
 
 it('should render', () => {
   const Children = () => {
@@ -54,8 +54,7 @@ it('should render', () => {
   })
 
   expect(container).toMatchSnapshot()
-});
-
+})
 
 it('should render using localStorage saved value', () => {
   localStorage.setItem('darkMode', 'true')
@@ -89,4 +88,6 @@ it('should render using localStorage saved value', () => {
   })
 
   expect(container).toMatchSnapshot()
-});
+
+  localStorage.clear()
+})

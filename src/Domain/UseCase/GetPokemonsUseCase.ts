@@ -1,11 +1,10 @@
 import Exception from "../Model/Exception";
 import GetPokemonsRepositoryInterface from "./GetPokemonsRepositoryInterface";
-import Service from "../Service";
 import Pokemon from "../Model/Pokemon";
 import PokemonDetail from "../Model/PokemonDetail";
 import { Generation } from "../Model/GenerationInfo";
 
-export default class GetPokemonsUseCase implements Service {
+export default class GetPokemonsUseCase {
   constructor(private repository: GetPokemonsRepositoryInterface) {}
 
   public getAll(generation: Generation): Promise<Pokemon[]>
@@ -18,9 +17,5 @@ export default class GetPokemonsUseCase implements Service {
   {
     return this.repository.getById(id)
       .catch((error) => Promise.reject(Exception.create(`Could not recover pokemon detail for id ${id}`, error)))
-  }
-
-  getName() : string {
-    return 'GetPokemonsUseCase';
   }
 }
