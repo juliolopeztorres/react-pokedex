@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { hot } from "react-hot-loader/root";
 import LoadingContextService from "../../Service/LoadingContextService";
 
@@ -17,9 +17,10 @@ const Loading = () => <svg aria-hidden="true"
 const LoadingContainer: (props: {children: React.ReactElement}) => React.ReactElement = ({children}) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const onLoadingChanged = (status : boolean) => {
-    setIsLoading(status)
-  }
+  const onLoadingChanged = useCallback(
+    (status : boolean) => setIsLoading(status),
+    []
+  )
 
   return <LoadingContextService.Provider value={[isLoading, onLoadingChanged]}>
     {isLoading && <div className='grid h-full place-content-center'><Loading/></div>}

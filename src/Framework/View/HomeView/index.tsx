@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { hot } from "react-hot-loader/root";
 import PokemonList from "./PokemonList";
 import PokemonModal from "./PokemonModal";
@@ -13,15 +13,17 @@ const HomeView = () => {
   const [pokemon, setPokemon] = useState<Pokemon | null>(null)
   const [showPokemonAltArt, setShowPokemonAltArt] = useState<boolean>(false)
 
-  const onSearchPokemonChanged = (name : string) => {
-    setSearchPokemonName(name.trim())
-  }
+  const onSearchPokemonChanged = useCallback(
+    (name : string) => setSearchPokemonName(name.trim()),
+    []
+  )
 
-  const onGenerationChanged = (generation: Generation) => {
-    setSearchPokemonName('')
-    setPokemon(null)
-    setCurrentGeneration(generation)
-  }
+  const onGenerationChanged = useCallback((generation: Generation) => {
+      setSearchPokemonName('')
+      setPokemon(null)
+      setCurrentGeneration(generation)
+    }, 
+    [])
 
   return <React.Fragment>
     {(pokemon && showPokemonAltArt) && <PokemonModal name={pokemon.name} onPokemonArtClicked={() => setShowPokemonAltArt(false)}/>}
