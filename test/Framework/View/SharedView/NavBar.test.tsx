@@ -2,9 +2,14 @@ import React from 'react'
 import { createRoot, Root } from "react-dom/client"
 import { act } from "@testing-library/react"
 
-import NavBar from "../../../../src/Framework/View/SharedView/NavBar"
 import DarkModeContextService from "../../../../src/Framework/Service/DarkModeContextService"
 import { BrowserRouter } from "react-router-dom"
+
+jest.mock('../../../../src/Framework/Asset/Image/pokeball.png', () => {
+  return 'img/pokeball.png'
+})
+
+import NavBar from "../../../../src/Framework/View/SharedView/NavBar"
 
 let root: Root
 let container: HTMLElement

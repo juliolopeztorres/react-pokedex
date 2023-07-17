@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { hot } from "react-hot-loader/root";
 import { useHistory } from "react-router";
 import DarkModeContextService from "../../Service/DarkModeContextService";
-import Pokeball from "../../Asset/Image/pokeball.png"
+import Pokeball from "../../Asset/Image/pokeball.png";
 import getRoute from "../../../Domain/Util/getRoute";
 
 const NavBar = () => {
