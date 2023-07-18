@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { hot } from "react-hot-loader/root";
 import PokemonList from "./PokemonList";
 import PokemonModal from "./PokemonModal";
@@ -6,8 +6,13 @@ import PokemonDetail from "./PokemonDetail";
 import LoadingContainer from "../Component/LoadingContainer";
 import Pokemon from "../../../Domain/Model/Pokemon";
 import { Generation, generationLabels } from "../../../Domain/Model/GenerationInfo";
+import { Link } from "react-router-dom";
+import getRoute from "../../../Domain/Util/getRoute";
+import UserContextService from "../../Service/UserContextService";
 
 const HomeView = () => {
+  const [email, setEmail] = useContext(UserContextService)
+
   const [currentGeneration, setCurrentGeneration] = useState<Generation>(generationLabels[0])
   const [searchPokemonName, setSearchPokemonName] = useState<string>('')
   const [pokemon, setPokemon] = useState<Pokemon | null>(null)
@@ -27,6 +32,17 @@ const HomeView = () => {
 
   return <React.Fragment>
     {(pokemon && showPokemonAltArt) && <PokemonModal name={pokemon.name} onPokemonArtClicked={() => setShowPokemonAltArt(false)}/>}
+    {email === null && (<div className="pl-2 mb-4 text-sm">
+      Want to log in?
+      <Link to={getRoute('login')} className="
+    ml-2 skew-y-3 inline-block p-1
+    bg-orange-100 hover:bg-orange-200
+    text-orange-600
+    dark:bg-orange-700 dark:hover:bg-orange-600 dark:text-orange-200
+    " style={{cursor: 'pointer'}}>
+        <div className="-skew-y-3">Click here</div>
+      </Link>
+    </div>)}
     <div className='pl-2 mb-4 flex flex-row'>
       <div className='basis-3/4'>
         <div className="flex flex-row">
@@ -34,6 +50,7 @@ const HomeView = () => {
             data-test-id='search'
             type="search"
              className='
+               appearance-none
                pr-6
                w-[12rem]
                md:w-[20rem]

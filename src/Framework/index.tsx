@@ -5,6 +5,7 @@ import DarkModeContainer from "./View/Component/DarkModeContainer";
 import NavBar from "./View/SharedView/NavBar";
 import RouteService from "./Service/RouteService";
 import Footer from "./View/SharedView/Footer";
+import UserContainer from "./View/Component/UserContainer";
 
 import './styles.css';
 
@@ -19,10 +20,12 @@ createRoot(anchor)
     // <React.StrictMode>
       <BrowserRouter>
         <DarkModeContainer>
-          <NavBar/>
-          <div className="grow">
-            <RouteService/>
-          </div>
+          <UserContainer>
+            <NavBar/>
+            <div className="grow">
+              <RouteService/>
+            </div>
+          </UserContainer>
           <Footer/>
         </DarkModeContainer>
       </BrowserRouter>
